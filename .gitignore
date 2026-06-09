@@ -1,0 +1,49 @@
+# ── Environment ──
+.env
+
+# ── Composer ──
+vendor/
+
+# ── Runtime writable directories (logs, cache, sessions, debugbar) ──
+writable/cache/*
+!writable/cache/.gitkeep
+writable/logs/*
+!writable/logs/.gitkeep
+writable/session/*
+!writable/session/.gitkeep
+writable/debugbar/*
+!writable/debugbar/.gitkeep
+writable/uploads/*
+!writable/uploads/index.html
+
+# ── Public uploads (user-generated content) ──
+public/uploads/categories/*
+!public/uploads/categories/.gitkeep
+public/uploads/galleries/*
+!public/uploads/galleries/.gitkeep
+public/uploads/products/*
+!public/uploads/products/.gitkeep
+public/uploads/testimonials/*
+!public/uploads/testimonials/.gitkeep
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / Editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# ── Node (if any) ──
+node_modules/
+npm-debug.log*
+
+# ── CI4 specific ──
+.phpunit.result.cache
+build/
