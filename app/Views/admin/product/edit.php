@@ -27,7 +27,7 @@
         <!-- Left Column: Main Form -->
         <div class="lg:col-span-2 space-y-6">
             <!-- Basic Info Card -->
-            <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20">
+            <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20">
                 <h3 class="font-headline-md text-base font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-5">Informasi Produk</h3>
                 
                 <div class="space-y-5">
@@ -36,12 +36,12 @@
                         <div class="space-y-1.5">
                             <label class="block text-xs font-bold text-on-surface-variant">Nama Produk <span class="text-error">*</span></label>
                             <input type="text" name="name" value="<?= old('name', $product['name']) ?>" placeholder="Masukkan nama buket/gift..." required
-                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                         </div>
                         <div class="space-y-1.5">
                             <label class="block text-xs font-bold text-on-surface-variant">SKU</label>
                             <input type="text" name="sku" value="<?= old('sku', $product['sku']) ?>" placeholder="Contoh: BKT-002"
-                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                         </div>
                     </div>
 
@@ -49,17 +49,20 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
                             <label class="block text-xs font-bold text-on-surface-variant">Kategori <span class="text-error">*</span></label>
-                            <select name="category_id" required class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
-                                <option value="">Pilih Kategori</option>
-                                <?php foreach ($categories as $cat): ?>
-                                <option value="<?= esc($cat['id']) ?>" <?= old('category_id', $product['category_id']) == $cat['id'] ? 'selected' : '' ?>><?= esc($cat['name']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <div class="relative">
+                                <select name="category_id" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all appearance-none">
+                                    <option value="">Pilih Kategori</option>
+                                    <?php foreach ($categories as $cat): ?>
+                                    <option value="<?= esc($cat['id']) ?>" <?= old('category_id', $product['category_id']) == $cat['id'] ? 'selected' : '' ?>><?= esc($cat['name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+                            </div>
                         </div>
                         <div class="space-y-1.5">
                             <label class="block text-xs font-bold text-on-surface-variant">Harga Mulai Dari <span class="text-error">*</span></label>
                             <input type="number" name="price" value="<?= old('price', (int)$product['price']) ?>" placeholder="Contoh: 150000" required
-                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                         </div>
                     </div>
 
@@ -67,13 +70,29 @@
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-on-surface-variant">Deskripsi</label>
                         <textarea name="description" rows="4" placeholder="Deskripsi detail produk..."
-                                  class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all resize-none"><?= old('description', $product['description']) ?></textarea>
+                                  class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all resize-none"><?= old('description', $product['description']) ?></textarea>
+                    </div>
+
+                    <!-- Color -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-bold text-on-surface-variant">Warna Produk</label>
+                            <div class="relative">
+                                <select name="color" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all appearance-none">
+                                    <option value="">Tidak ditentukan</option>
+                                    <?php foreach ($colors as $color): ?>
+                                    <option value="<?= esc($color['name']) ?>" <?= old('color', $product['color'] ?? '') == $color['name'] ? 'selected' : '' ?>><?= esc($color['name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Variants Card -->
-            <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20">
+            <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20">
                 <div class="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-5">
                     <h3 class="font-headline-md text-base font-bold text-on-surface">Varian Ukuran & Harga</h3>
                     <button type="button" onclick="addVariantRow()" class="text-primary dark:text-primary-fixed-dim text-xs font-bold flex items-center gap-1 hover:underline">
@@ -84,11 +103,11 @@
                 <div id="variants-container" class="space-y-3">
                     <?php if (!empty($product['variants'])): ?>
                         <?php foreach ($product['variants'] as $variant): ?>
-                        <div class="variant-row flex items-center gap-3">
+                        <div class="variant-row flex flex-col sm:flex-row sm:items-center gap-3">
                             <input type="text" name="variant_size[]" value="<?= esc($variant['size_label']) ?>" placeholder="Ukuran (S, M, L, XL...)"
-                                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                             <input type="number" name="variant_price[]" value="<?= esc((int)$variant['price']) ?>" placeholder="Harga varian"
-                                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                             <button type="button" onclick="this.closest('.variant-row').remove()" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-xl transition-colors">
                                 <span class="material-symbols-outlined text-lg">close</span>
                             </button>
@@ -96,11 +115,11 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <!-- Template row -->
-                        <div class="variant-row flex items-center gap-3">
+                        <div class="variant-row flex flex-col sm:flex-row sm:items-center gap-3">
                             <input type="text" name="variant_size[]" placeholder="Ukuran (S, M, L, XL...)"
-                                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                             <input type="number" name="variant_price[]" placeholder="Harga varian"
-                                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                             <button type="button" onclick="this.closest('.variant-row').remove()" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-xl transition-colors">
                                 <span class="material-symbols-outlined text-lg">close</span>
                             </button>
@@ -111,7 +130,7 @@
 
             <!-- Existing Images List -->
             <?php if (!empty($product['images'])): ?>
-            <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20">
+            <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20">
                 <h3 class="font-headline-md text-base font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-5">Foto Produk Saat Ini</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <?php foreach ($product['images'] as $img): ?>
@@ -133,7 +152,7 @@
             <?php endif; ?>
 
             <!-- Add New Image Upload Card -->
-            <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20">
+            <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20">
                 <h3 class="font-headline-md text-base font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-5">Tambah Foto Baru</h3>
 
                 <div class="space-y-1.5">
@@ -156,17 +175,20 @@
         <!-- Right Column: Sidebar -->
         <div class="space-y-6">
             <!-- Status & Actions -->
-            <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20">
+            <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20">
                 <h3 class="font-headline-md text-base font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-5">Publikasi</h3>
                 
                 <div class="space-y-4">
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-on-surface-variant">Status</label>
-                        <select name="status" required class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
-                            <option value="ready" <?= old('status', $product['status']) == 'ready' ? 'selected' : '' ?>>Ready</option>
-                            <option value="pre-order" <?= old('status', $product['status']) == 'pre-order' ? 'selected' : '' ?>>Pre-order</option>
-                            <option value="habis" <?= old('status', $product['status']) == 'habis' ? 'selected' : '' ?>>Habis</option>
-                        </select>
+                        <div class="relative">
+                            <select name="status" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all appearance-none">
+                                <option value="ready" <?= old('status', $product['status']) == 'ready' ? 'selected' : '' ?>>Ready</option>
+                                <option value="pre-order" <?= old('status', $product['status']) == 'pre-order' ? 'selected' : '' ?>>Pre-order</option>
+                                <option value="habis" <?= old('status', $product['status']) == 'habis' ? 'selected' : '' ?>>Habis</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-lg">expand_more</span>
+                        </div>
                     </div>
 
                     <label class="flex items-center gap-3 p-3 rounded-xl border border-outline-variant/40 hover:border-primary/30 transition-colors cursor-pointer">
@@ -196,12 +218,12 @@
     function addVariantRow() {
         const container = document.getElementById('variants-container');
         const row = document.createElement('div');
-        row.className = 'variant-row flex items-center gap-3';
+        row.className = 'variant-row flex flex-col sm:flex-row sm:items-center gap-3';
         row.innerHTML = `
             <input type="text" name="variant_size[]" placeholder="Ukuran (S, M, L, XL...)"
-                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
             <input type="number" name="variant_price[]" placeholder="Harga varian"
-                   class="flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                   class="w-full sm:flex-1 px-4 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest text-sm text-on-surface placeholder:text-outline-variant focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
             <button type="button" onclick="this.closest('.variant-row').remove()" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-xl transition-colors">
                 <span class="material-symbols-outlined text-lg">close</span>
             </button>

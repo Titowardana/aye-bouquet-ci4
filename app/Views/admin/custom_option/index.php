@@ -7,11 +7,21 @@
         border: 1px solid rgba(0, 0, 0, 0.06);
     }
     .dark .glass-card {
-        background: #1e1c1d;
+        background: #2a2328;
         border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .glow-shadow {
         box-shadow: 0 10px 30px -10px rgba(240, 113, 103, 0.2);
+    }
+
+    /* Dropdown options dark mode */
+    .dark select option {
+        background-color: #2b2027;
+        color: #e5e7eb;
+    }
+    .dark select option:checked {
+        background-color: #795465;
+        color: #ffffff;
     }
 </style>
 
@@ -74,11 +84,11 @@
             <!-- Search -->
             <div class="relative flex-grow md:flex-grow-0">
                 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
-                <input type="text" name="search" value="<?= esc($search) ?>" placeholder="Cari opsi custom..." class="w-full bg-surface-container-high dark:bg-white/10 border border-outline-variant/20 dark:border-white/15 rounded-lg py-2 pl-9 pr-3 focus:ring-1 focus:ring-primary-container outline-none text-sm text-on-surface dark:text-white/80 dark:placeholder:text-white/40">
+                <input type="text" name="search" value="<?= esc($search) ?>" placeholder="Cari opsi custom..." class="w-full bg-surface rounded-lg py-2 pl-9 pr-3 focus:ring-1 focus:ring-primary-container outline-none text-sm text-on-surface dark:text-white/90 dark:placeholder:text-white/50 border border-outline-variant/20 dark:border-white/15">
             </div>
             
             <!-- Type Filter -->
-            <select name="type" onchange="this.form.submit()" class="bg-surface-container-high dark:bg-white/10 border border-outline-variant/20 dark:border-white/15 rounded-lg py-2 px-3 text-sm focus:ring-1 focus:ring-primary-container outline-none text-on-surface-variant dark:text-white/80 hover:text-on-surface dark:hover:text-white cursor-pointer">
+            <select name="type" onchange="this.form.submit()" class="bg-surface border border-outline-variant/20 dark:border-white/15 rounded-lg py-2 px-3 text-sm focus:ring-1 focus:ring-primary-container outline-none text-on-surface-variant dark:text-white/90 hover:text-on-surface dark:hover:text-white cursor-pointer">
                 <option value="">Semua Type</option>
                 <option value="size" <?= $typeFilter === 'size' ? 'selected' : '' ?>>Size</option>
                 <option value="color" <?= $typeFilter === 'color' ? 'selected' : '' ?>>Color</option>
@@ -86,7 +96,7 @@
             </select>
             
             <!-- Status Filter -->
-            <select name="status" onchange="this.form.submit()" class="bg-surface-container-high dark:bg-white/10 border border-outline-variant/20 dark:border-white/15 rounded-lg py-2 px-3 text-sm focus:ring-1 focus:ring-primary-container outline-none text-on-surface-variant dark:text-white/80 hover:text-on-surface dark:hover:text-white cursor-pointer">
+            <select name="status" onchange="this.form.submit()" class="bg-surface border border-outline-variant/20 dark:border-white/15 rounded-lg py-2 px-3 text-sm focus:ring-1 focus:ring-primary-container outline-none text-on-surface-variant dark:text-white/90 hover:text-on-surface dark:hover:text-white cursor-pointer">
                 <option value="">Semua Status</option>
                 <option value="aktif" <?= $statusFilter === 'aktif' ? 'selected' : '' ?>>Aktif</option>
                 <option value="nonaktif" <?= $statusFilter === 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
@@ -96,7 +106,17 @@
                 <a href="<?= base_url('admin/custom-options') ?>" class="text-xs text-error hover:underline">Reset</a>
             <?php endif; ?>
         </div>
-        <p class="text-xs text-on-surface-variant w-full md:w-auto text-left md:text-right">Menampilkan <?= count($options) ?> opsi</p>
+        <p class="text-xs text-on-surface-variant w-full md:w-auto text-left md:text-right">
+            <?php if (isset($pager)): ?>
+                <?php $totalItems = $pager->getTotal('admin_pagination'); $curPage = $pager->getCurrentPage('admin_pagination'); $pageCount = $pager->getPageCount('admin_pagination'); ?>
+                Menampilkan <?= count($options) ?> dari total <?= $totalItems ?> opsi
+                <?php if ($pageCount > 1): ?>
+                    — Halaman <?= $curPage ?> dari <?= $pageCount ?>
+                <?php endif; ?>
+            <?php else: ?>
+                Menampilkan <?= count($options) ?> opsi
+            <?php endif; ?>
+        </p>
     </form>
 
     <!-- Desktop Table -->
@@ -115,7 +135,13 @@
             <tbody class="divide-y divide-outline-variant/10">
                 <?php if (empty($options)): ?>
                 <tr>
-                    <td colspan="6" class="px-4 py-8 text-center text-on-surface-variant">Belum ada data opsi custom.</td>
+                    <td colspan="6" class="px-4 py-8 text-center text-on-surface-variant">
+                        <?php if (!empty($search) || !empty($typeFilter) || !empty($statusFilter)): ?>
+                            Tidak ada opsi yang cocok dengan filter.
+                        <?php else: ?>
+                            Belum ada data opsi custom.
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <?php else: ?>
                     <?php foreach($options as $opt): ?>
@@ -175,9 +201,13 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <?php if (!empty($options) && isset($pager) && $pager->getPageCount() > 1): ?>
-        <div class="p-4 border-t border-outline-variant/20 flex justify-center">
+        <?php if (!empty($options) && isset($pager) && $pager->getPageCount('admin_pagination') > 1): ?>
+        <div class="p-4 border-t border-outline-variant/20 dark:border-white/10 flex justify-center bg-surface-container-low dark:bg-white/[0.03] rounded-b-xl">
             <?= $pager->links('admin_pagination', 'admin_pagination') ?>
+        </div>
+        <?php elseif (!empty($options) && isset($pager)): ?>
+        <div class="p-3 border-t border-outline-variant/20 dark:border-white/10 flex justify-center bg-surface-container-low dark:bg-white/[0.03] rounded-b-xl">
+            <span class="text-xs text-on-surface-variant dark:text-gray-400">Halaman 1 dari 1</span>
         </div>
         <?php endif; ?>
     </div>
@@ -187,7 +217,13 @@
         <?php if (empty($options)): ?>
         <div class="glass-card rounded-xl p-8 text-center">
             <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-3 block">settings</span>
-            <p class="text-sm text-on-surface-variant">Belum ada data opsi custom.</p>
+            <p class="text-sm text-on-surface-variant">
+                <?php if (!empty($search) || !empty($typeFilter) || !empty($statusFilter)): ?>
+                    Tidak ada opsi yang cocok dengan filter.
+                <?php else: ?>
+                    Belum ada data opsi custom.
+                <?php endif; ?>
+            </p>
         </div>
         <?php else: ?>
             <?php foreach($options as $opt): ?>
@@ -245,9 +281,13 @@
                     </div>
                 </div>
             <?php endforeach; ?>
-            <?php if (isset($pager) && $pager->getPageCount() > 1): ?>
-            <div class="flex justify-center pt-2">
+            <?php if (isset($pager) && $pager->getPageCount('admin_pagination') > 1): ?>
+            <div class="flex justify-center pt-4 pb-2 bg-surface-container-low dark:bg-white/[0.03] rounded-xl p-3">
                 <?= $pager->links('admin_pagination', 'admin_pagination') ?>
+            </div>
+            <?php elseif (isset($pager)): ?>
+            <div class="flex justify-center pt-4 pb-2 bg-surface-container-low dark:bg-white/[0.03] rounded-xl p-3">
+                <span class="text-xs text-on-surface-variant dark:text-gray-400">Halaman 1 dari 1</span>
             </div>
             <?php endif; ?>
         <?php endif; ?>

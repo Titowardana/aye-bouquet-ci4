@@ -28,7 +28,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
     <!-- Existing Variants Table -->
     <div class="lg:col-span-3">
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl soft-shadow border border-outline-variant/20 overflow-hidden card-hover-admin admin-enter">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl soft-shadow border border-outline-variant/20 overflow-hidden card-hover-admin admin-enter">
             <div class="p-6 border-b border-outline-variant/20 flex items-center justify-between">
                 <div>
                     <h3 class="font-headline-md text-base font-bold text-on-surface">Varian Aktif</h3>
@@ -86,7 +86,7 @@
 
     <!-- Add Variant Form -->
     <div class="lg:col-span-2 space-y-6">
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-1">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-1">
             <h3 class="font-headline-md text-base font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-5">Tambah Varian Baru</h3>
 
             <form action="<?= base_url('admin/produk/' . $product['id'] . '/varian/store') ?>" method="post">
@@ -94,11 +94,11 @@
 
                 <div id="variant-rows" class="space-y-3 mb-4">
                     <!-- Row template -->
-                    <div class="variant-row flex items-center gap-2">
+                    <div class="variant-row flex flex-col sm:flex-row sm:items-center gap-2">
                         <input type="text" name="size_label[]" placeholder="Ukuran (S, M, L, XL...)" required
-                               class="flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                               class="w-full sm:flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-white text-sm text-gray-900 dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                         <input type="number" name="price[]" placeholder="Harga" min="0" required
-                               class="flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+                               class="w-full sm:flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-white text-sm text-gray-900 dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
                         <button type="button" onclick="removeRow(this)" class="p-2 text-on-surface-variant hover:text-error rounded-xl transition-colors shrink-0">
                             <span class="material-symbols-outlined text-base">close</span>
                         </button>
@@ -121,7 +121,7 @@
         </div>
 
         <!-- Quick Size Presets -->
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-5 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-2">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-5 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-2">
             <h4 class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-3">Preset Ukuran Cepat</h4>
             <div class="flex flex-wrap gap-2">
                 <?php foreach (['S', 'M', 'L', 'XL', 'Jumbo', '8R', '10R', 'Kecil', 'Sedang', 'Besar'] as $preset): ?>
@@ -140,12 +140,12 @@
 function addRow() {
     const container = document.getElementById('variant-rows');
     const row = document.createElement('div');
-    row.className = 'variant-row flex items-center gap-2';
+    row.className = 'variant-row flex flex-col sm:flex-row sm:items-center gap-2';
     row.innerHTML = `
         <input type="text" name="size_label[]" placeholder="Ukuran (S, M, L, XL...)"
-               class="flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+               class="w-full sm:flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-white text-sm text-gray-900 dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
         <input type="number" name="price[]" placeholder="Harga" min="0"
-               class="flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-surface-container text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
+               class="w-full sm:flex-1 px-3 py-2.5 rounded-xl border border-outline-variant bg-surface-container-lowest dark:bg-white text-sm text-gray-900 dark:text-gray-900 placeholder-gray-400 dark:placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all">
         <button type="button" onclick="removeRow(this)" class="p-2 text-on-surface-variant hover:text-error rounded-xl transition-colors shrink-0">
             <span class="material-symbols-outlined text-base">close</span>
         </button>

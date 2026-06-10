@@ -7,13 +7,15 @@ use App\Models\CategoryModel;
 use App\Models\ProductVariantModel;
 use App\Models\ProductImageModel;
 use App\Models\SettingModel;
+use App\Models\ProductColorModel;
 
 class Product extends BaseController
 {
     public function index(): string
     {
-        $productModel  = new ProductModel();
-        $categoryModel = new CategoryModel();
+        $productModel   = new ProductModel();
+        $categoryModel  = new CategoryModel();
+        $productColorModel = new ProductColorModel();
 
         $categorySlug = $this->request->getGet('kategori');
         $categoryId = null;
@@ -51,6 +53,7 @@ class Product extends BaseController
             'activeMenu' => 'catalog',
             'products'   => $products,
             'categories' => $categoryModel->getActiveCategories(),
+            'colors'     => $productColorModel->getActiveColors(),
             'pager'      => $productModel->pager,
             'search'     => $filters['search'],
             'selectedCategory' => $categorySlug,

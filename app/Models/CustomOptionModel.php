@@ -27,7 +27,7 @@ class CustomOptionModel extends Model
 
     public function getFiltered(array $filters = [], int $perPage = 15)
     {
-        $builder = $this->orderBy('type', 'ASC')->orderBy('sort_order', 'ASC');
+        $builder = $this->orderBy('type', 'ASC')->orderBy('sort_order', 'ASC')->orderBy('id', 'ASC');
 
         if (!empty($filters['search'])) {
             $builder->like('name', $filters['search']);

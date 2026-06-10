@@ -189,6 +189,7 @@ $phoneDisplay = preg_replace('/^(\+62|62|0)/', '', old('no_hp'));
                         <div>
                             <label class="block font-label-md text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Tanggal Pengiriman/Pengambilan *</label>
                             <input type="date" id="tanggal" name="tanggal" required class="form-input" value="<?= old('tanggal') ?>">
+                            <p id="date-preview" class="text-xs text-on-surface-variant mt-1.5 font-medium"><?= old('tanggal') ? 'Tanggal dipilih: ' . date('d-m-Y', strtotime(old('tanggal'))) : 'Format tanggal: dd-mm-yyyy' ?></p>
                         </div>
                         <div>
                             <label class="block font-label-md text-xs font-bold text-on-surface-variant mb-2 uppercase tracking-wide">Jam Pengiriman/Pengambilan *</label>
@@ -316,6 +317,19 @@ $phoneDisplay = preg_replace('/^(\+62|62|0)/', '', old('no_hp'));
     if (dateInput) {
         const today = new Date().toISOString().split('T')[0];
         dateInput.min = today;
+    }
+
+    // Date format preview (dd-mm-yyyy)
+    const previewEl = document.getElementById('date-preview');
+    if (dateInput && previewEl) {
+        dateInput.addEventListener('change', function () {
+            if (this.value) {
+                const parts = this.value.split('-');
+                previewEl.textContent = 'Tanggal dipilih: ' + parts[2] + '-' + parts[1] + '-' + parts[0];
+            } else {
+                previewEl.textContent = 'Format tanggal: dd-mm-yyyy';
+            }
+        });
     }
 
     // Show alamat section on load if "Kirim via Kurir" was previously selected

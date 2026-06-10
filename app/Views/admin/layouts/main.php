@@ -61,6 +61,59 @@
             max-width: 100vw;
             overflow-x: hidden;
         }
+
+        /* ── Clean sidebar scrollbar (hide up/down arrows) ── */
+        #admin-sidebar nav {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(121,84,101,0.25) transparent;
+        }
+        #admin-sidebar nav::-webkit-scrollbar {
+            width: 4px;
+        }
+        #admin-sidebar nav::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #admin-sidebar nav::-webkit-scrollbar-thumb {
+            background: rgba(121,84,101,0.25);
+            border-radius: 99px;
+        }
+        #admin-sidebar nav::-webkit-scrollbar-thumb:hover {
+            background: rgba(121,84,101,0.4);
+        }
+        #admin-sidebar nav::-webkit-scrollbar-button {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        /* ── Admin filter bar inputs / selects / date pickers ── */
+        select.admin-filter-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: none !important;
+        }
+        select.admin-filter-select::-ms-expand {
+            display: none;
+        }
+        .dark select.admin-filter-select,
+        .dark input.admin-filter-input,
+        .dark input.admin-filter-date {
+            background-color: #241b22 !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+        }
+        .dark input.admin-filter-input::placeholder,
+        .dark input.admin-filter-date::placeholder {
+            color: rgba(255, 255, 255, 0.45) !important;
+        }
+        .dark input[type="date"].admin-filter-date::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.75;
+        }
+        input[type="date"].admin-filter-date {
+            color-scheme: dark;
+        }
     </style>
     <!-- Dark Mode Init Script -->
     <script>
@@ -73,7 +126,7 @@
 </head>
 <body class="bg-surface dark:bg-inverse-surface text-on-surface dark:text-inverse-on-surface min-h-screen flex transition-colors duration-300 font-body-md overflow-x-hidden">
     <!-- Sidebar -->
-    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-surface-container dark:bg-[#181516] border-r border-outline-variant/30 dark:border-white/10 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0">
+    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-surface-container dark:bg-[#2a2328] border-r border-outline-variant/30 dark:border-white/10 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0">
         <!-- Brand Header -->
         <div class="h-20 px-6 flex items-center gap-3 border-b border-outline-variant/30 dark:border-white/10">
             <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary dark:text-primary-fixed-dim p-1.5">
@@ -95,6 +148,10 @@
                 <span class="material-symbols-outlined">receipt_long</span>
                 <span class="text-sm">Pesanan</span>
             </a>
+            <a href="<?= base_url('admin/pesanan/arsip') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-surface-container-high dark:hover:bg-white/5 <?= ($activeMenu ?? '') === 'arsip-pesanan' ? 'sidebar-active font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:text-white/70 dark:hover:text-white' ?>">
+                <span class="material-symbols-outlined">archive</span>
+                <span class="text-sm">Arsip</span>
+            </a>
             <a href="<?= base_url('admin/produk') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-surface-container-high dark:hover:bg-white/5 <?= ($activeMenu ?? '') === 'produk' || ($activeMenu ?? '') === 'products' ? 'sidebar-active font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:text-white/70 dark:hover:text-white' ?>">
                 <span class="material-symbols-outlined">inventory_2</span>
                 <span class="text-sm">Products</span>
@@ -106,6 +163,10 @@
             <a href="<?= base_url('admin/custom-options') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-surface-container-high dark:hover:bg-white/5 <?= ($activeMenu ?? '') === 'custom-options' ? 'sidebar-active font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:text-white/70 dark:hover:text-white' ?>">
                 <span class="material-symbols-outlined">tune</span>
                 <span class="text-sm">Opsi Custom</span>
+            </a>
+            <a href="<?= base_url('admin/product-colors') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-surface-container-high dark:hover:bg-white/5 <?= ($activeMenu ?? '') === 'product-colors' ? 'sidebar-active font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:text-white/70 dark:hover:text-white' ?>">
+                <span class="material-symbols-outlined">palette</span>
+                <span class="text-sm">Warna Produk</span>
             </a>
             <a href="<?= base_url('admin/galeri') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-surface-container-high dark:hover:bg-white/5 <?= ($activeMenu ?? '') === 'galeri' || ($activeMenu ?? '') === 'galleries' ? 'sidebar-active font-semibold shadow-sm' : 'text-on-surface-variant hover:text-on-surface dark:text-white/70 dark:hover:text-white' ?>">
                 <span class="material-symbols-outlined">photo_library</span>

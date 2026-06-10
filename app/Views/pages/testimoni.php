@@ -7,6 +7,7 @@
         cursor: pointer;
     }
     .rating-star:hover { transform: scale(1.2); }
+    .rating-star.text-gray-300 { color: #E8E3DE; }
 </style>
 
 <!-- Flash Messages -->
@@ -33,8 +34,8 @@
 <?php endif; ?>
 
 <!-- Submission Form -->
-<div class="flex items-center justify-center py-12 md:py-16 px-container-padding-mobile md:px-container-padding-desktop animate-on-scroll">
-    <div class="w-full max-w-2xl bg-white dark:bg-[#262024] rounded-xl shadow-[0_4px_20px_rgba(121,84,101,0.05)] dark:shadow-none p-8 md:p-12 card-hover">
+<div class="flex items-center justify-center py-12 md:py-16 px-container-padding-mobile md:px-container-padding-desktop animate-on-scroll bg-warm-cream dark:bg-[#1c191a]">
+    <div class="w-full max-w-2xl bg-white-warm dark:bg-[#262024] rounded-xl shadow-[0_4px_20px_rgba(121,84,101,0.05)] dark:shadow-none p-8 md:p-12 card-hover border border-soft-beige/30 dark:border-white/10">
         <div class="text-center mb-10">
             <h1 class="font-headline-lg text-2xl md:text-3xl font-bold text-primary dark:text-primary-fixed-dim mb-4">Bagikan Kebahagiaan Anda</h1>
             <p class="font-body-md text-base text-on-surface-variant dark:text-white/70">Ceritakan pengalaman manis Anda bersama kami. Testimoni Anda sangat berarti untuk membantu kami menyebarkan lebih banyak kebahagiaan.</p>
@@ -55,17 +56,17 @@
             <!-- Review Textarea -->
             <div>
                 <label class="block font-label-md text-sm font-bold text-on-surface dark:text-white/80 mb-2" for="review">Ulasan Anda</label>
-                <textarea class="w-full bg-surface-container-low dark:bg-white/5 border border-surface-variant dark:border-white/15 rounded-lg p-4 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all resize-none placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="review" name="review" placeholder="Tuliskan pengalaman Anda di sini..." rows="4"><?= old('review') ?></textarea>
+                <textarea class="w-full bg-white-warm dark:bg-white/5 border border-soft-beige/30 dark:border-white/15 rounded-lg p-4 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all resize-none placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="review" name="review" placeholder="Tuliskan pengalaman Anda di sini..." rows="4"><?= old('review') ?></textarea>
             </div>
 
             <!-- Image Upload -->
             <div>
                 <label class="block font-label-md text-sm font-bold text-on-surface dark:text-white/80 mb-2">Unggah Foto (Opsional)</label>
-                <div class="border-2 border-dashed border-outline-variant dark:border-white/15 rounded-lg p-8 flex flex-col items-center justify-center text-center bg-surface-container-low dark:bg-white/5 hover:bg-surface-container dark:hover:bg-white/10 transition-colors cursor-pointer group">
-                    <span class="material-symbols-outlined text-outline dark:text-white/40 text-4xl mb-3 group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">cloud_upload</span>
+                <div class="border-2 border-dashed border-soft-beige/50 dark:border-white/15 rounded-lg p-8 flex flex-col items-center justify-center text-center bg-warm-blush/40 dark:bg-white/5 hover:bg-soft-pink-accent/30 dark:hover:bg-white/10 transition-colors cursor-pointer group">
+                    <span class="material-symbols-outlined text-soft-beige dark:text-white/40 text-4xl mb-3 group-hover:text-primary dark:group-hover:text-primary-fixed-dim transition-colors">cloud_upload</span>
                     <p class="font-body-md text-base text-on-surface-variant dark:text-white/70 mb-2">Tarik dan lepas foto ke sini, atau</p>
                     <button class="font-label-md text-sm font-bold text-primary dark:text-primary-fixed-dim bg-primary-container/30 dark:bg-primary/20 px-4 py-2 rounded-full hover:bg-primary-container dark:hover:bg-primary/30 transition-colors" type="button" onclick="document.getElementById('foto_upload').click()">Pilih Foto</button>
-                    <p class="font-label-sm text-xs text-outline dark:text-white/40 mt-3">Format didukung: JPG, PNG. Maks ukuran 5MB.</p>
+                    <p class="font-label-sm text-xs text-soft-beige dark:text-white/40 mt-3">Format didukung: JPG, PNG. Maks ukuran 5MB.</p>
                     <input id="foto_upload" accept="image/*" class="hidden" name="foto" type="file">
                 </div>
             </div>
@@ -74,11 +75,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block font-label-md text-sm font-bold text-on-surface dark:text-white/80 mb-2" for="name">Nama Lengkap</label>
-                    <input class="w-full bg-surface-container-low dark:bg-white/5 border border-surface-variant dark:border-white/15 rounded-lg p-3 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="name" name="name" placeholder="Cth: Jane Doe" type="text" value="<?= old('name') ?>" required>
+                    <input class="w-full bg-white-warm dark:bg-white/5 border border-soft-beige/30 dark:border-white/15 rounded-lg p-3 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="name" name="name" placeholder="Cth: Jane Doe" type="text" value="<?= old('name') ?>" required>
                 </div>
                 <div>
                     <label class="block font-label-md text-sm font-bold text-on-surface dark:text-white/80 mb-2" for="city">Kota Asal</label>
-                    <input class="w-full bg-surface-container-low dark:bg-white/5 border border-surface-variant dark:border-white/15 rounded-lg p-3 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="city" name="city" placeholder="Cth: Jakarta Selatan" type="text" value="<?= old('city') ?>">
+                    <input class="w-full bg-white-warm dark:bg-white/5 border border-soft-beige/30 dark:border-white/15 rounded-lg p-3 font-body-md text-base text-on-surface dark:text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary-container transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" id="city" name="city" placeholder="Cth: Jakarta Selatan" type="text" value="<?= old('city') ?>">
                 </div>
             </div>
 
@@ -94,7 +95,7 @@
 
 <!-- Approved Testimonials List -->
 <?php if (!empty($testimonials)): ?>
-<section class="py-12 md:py-16 px-container-padding-mobile md:px-container-padding-desktop animate-on-scroll bg-surface-container-low/30 dark:bg-[#1f1b1d]">
+<section class="py-12 md:py-16 px-container-padding-mobile md:px-container-padding-desktop animate-on-scroll bg-warm-blush/40 dark:bg-[#1f1b1d]">
     <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
             <h2 class="font-headline-lg text-3xl md:text-4xl text-on-surface dark:text-white/95 mb-4 font-bold tracking-tight">Testimoni Pelanggan</h2>
@@ -110,7 +111,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
             <?php foreach ($testimonials as $testimonial): ?>
-            <div class="bg-surface dark:bg-[#262024] rounded-2xl p-8 soft-shadow border border-surface-container dark:border-white/10 flex flex-col justify-between hover:border-primary/20 transition-all duration-300 group animate-on-scroll">
+            <div class="bg-white-warm dark:bg-[#262024] rounded-2xl p-8 soft-shadow border border-soft-beige/30 dark:border-white/10 flex flex-col justify-between hover:border-primary/20 transition-all duration-300 group animate-on-scroll">
                 <div>
                     <div class="flex gap-1 mb-4 text-primary dark:text-primary-fixed-dim">
                         <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -126,7 +127,7 @@
                     </div>
                     <?php endif; ?>
                 </div>
-                <div class="flex items-center gap-4 border-t border-surface-container dark:border-white/10 pt-4 mt-2">
+                <div class="flex items-center gap-4 border-t border-soft-beige/30 dark:border-white/10 pt-4 mt-2">
                     <div class="w-12 h-12 rounded-full bg-primary-container dark:bg-primary/25 flex items-center justify-center text-primary dark:text-primary-fixed-dim font-bold shadow-inner group-hover:scale-105 transition-transform duration-300">
                         <?= strtoupper(substr(esc($testimonial['customer_name']), 0, 1)) ?>
                     </div>

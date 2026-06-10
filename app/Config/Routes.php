@@ -87,6 +87,15 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], static functio
     $routes->post('produk/(:num)/varian/store', 'Variant::store/$1', $options);
     $routes->post('varian/delete/(:num)', 'Variant::delete/$1', $options);
 
+    // Product Color CRUD
+    $routes->get('product-colors', 'ProductColor::index', $options);
+    $routes->get('product-colors/create', 'ProductColor::create', $options);
+    $routes->post('product-colors/store', 'ProductColor::store', $options);
+    $routes->get('product-colors/edit/(:num)', 'ProductColor::edit/$1', $options);
+    $routes->post('product-colors/update/(:num)', 'ProductColor::update/$1', $options);
+    $routes->post('product-colors/delete/(:num)', 'ProductColor::delete/$1', $options);
+    $routes->post('product-colors/toggle-status/(:num)', 'ProductColor::toggleStatus/$1', $options);
+
     // Gallery CRUD
     $routes->get('galeri', 'Gallery::index', $options);
     $routes->get('galeri/create', 'Gallery::create', $options);
@@ -116,6 +125,13 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], static functio
     $routes->get('pesanan/print', 'Order::print', $options);
     $routes->get('pesanan/detail/(:num)', 'Order::detail/$1', $options);
     $routes->post('pesanan/update-status/(:num)', 'Order::updateStatus/$1', $options);
+    $routes->get('pesanan/arsip', 'Order::arsip', $options);
+    $routes->post('pesanan/arsip/(:num)', 'Order::archive/$1', $options);
+    $routes->post('pesanan/pulihkan/(:num)', 'Order::restore/$1', $options);
+    $routes->post('pesanan/hapus-permanen/(:num)', 'Order::deletePermanent/$1', $options);
+    $routes->post('pesanan/bulk-archive', 'Order::bulkArchive', $options);
+    $routes->post('pesanan/arsip/bulk-delete', 'Order::bulkDeletePermanent', $options);
+    $routes->post('pesanan/arsip/bulk-restore', 'Order::bulkRestore', $options);
     
     // Contact Settings
     $routes->get('contact', 'Contact::index', $options);

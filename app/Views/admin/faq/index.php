@@ -29,16 +29,16 @@
 <?php endif; ?>
 
 <!-- Action Bar -->
-<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 mb-6 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-1">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 mb-6 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between border border-outline-variant/20 dark:border-white/10 card-hover-admin admin-enter admin-enter-delay-1">
     <form method="get" action="<?= base_url('admin/faqs') ?>" class="flex flex-col sm:flex-row gap-3 flex-1">
         <div class="relative flex-1">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-            <input name="search" value="<?= esc($search ?? '') ?>" class="w-full pl-10 pr-4 py-2.5 bg-surface dark:bg-white/5 rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white transition-colors placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" placeholder="Cari pertanyaan..." type="text"/>
+            <input name="search" value="<?= esc($search ?? '') ?>" class="admin-filter-input w-full pl-10 pr-4 py-2.5 bg-surface rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white transition-colors placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" placeholder="Cari pertanyaan..." type="text"/>
         </div>
         
         <div class="flex flex-col sm:flex-row gap-3">
             <div class="relative">
-                <select name="status" onchange="this.form.submit()" class="w-full appearance-none pl-4 pr-10 py-2.5 bg-surface dark:bg-[#211b1f] rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white cursor-pointer min-w-[160px]">
+                <select name="status" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white cursor-pointer min-w-[160px]">
                     <option value="">Semua Status</option>
                     <option value="tampil" <?= ($selectedStatus ?? '') === 'tampil' ? 'selected' : '' ?>>Tampil</option>
                     <option value="disembunyikan" <?= ($selectedStatus ?? '') === 'disembunyikan' ? 'selected' : '' ?>>Disembunyikan</option>
@@ -47,7 +47,7 @@
             </div>
             
             <div class="relative">
-                <select name="category" onchange="this.form.submit()" class="w-full appearance-none pl-4 pr-10 py-2.5 bg-surface dark:bg-[#211b1f] rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white cursor-pointer min-w-[180px]">
+                <select name="category" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none font-body-md text-sm text-on-surface dark:text-white cursor-pointer min-w-[180px]">
                     <option value="">Semua Kategori</option>
                     <?php
                     $catOpts = [
@@ -146,7 +146,7 @@
     <!-- Pagination Footer Desktop -->
     <?php if (isset($pager)): ?>
     <div class="px-6 py-4 border-t border-outline-variant/20 bg-surface-container-lowest flex items-center justify-between">
-        <?= $pager->links('default', 'admin_pagination') ?>
+        <?= $pager->links('admin_pagination', 'admin_pagination') ?>
     </div>
     <?php endif; ?>
 </div>
@@ -203,7 +203,7 @@
         <!-- Pagination Footer Mobile -->
         <?php if (isset($pager)): ?>
         <div class="px-4 py-3 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 flex items-center justify-center soft-shadow">
-            <?= $pager->links('default', 'admin_pagination') ?>
+            <?= $pager->links('admin_pagination', 'admin_pagination') ?>
         </div>
         <?php endif; ?>
 

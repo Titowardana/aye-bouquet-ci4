@@ -24,11 +24,17 @@
     <?php endif; ?>
 
     <div class="flex items-center justify-between gap-4">
-        <a href="<?= base_url('admin/pesanan') ?>"
+        <a href="<?= base_url($order['is_archived'] ? 'admin/pesanan/arsip' : 'admin/pesanan') ?>"
            class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline">
             <span class="material-symbols-outlined text-base">arrow_back</span>
-            Kembali ke Daftar Pesanan
+            Kembali ke <?= $order['is_archived'] ? 'Arsip' : 'Daftar Pesanan' ?>
         </a>
+        <?php if ($order['is_archived']): ?>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant dark:bg-white/10 dark:text-white/70 text-xs font-bold">
+                <span class="material-symbols-outlined text-[14px]">archive</span>
+                Diarsipkan
+            </span>
+        <?php endif; ?>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -67,6 +73,11 @@
                     <div>
                         <p class="text-on-surface-variant text-xs mb-0.5">No HP</p>
                         <p class="font-bold"><?= esc($order['phone']) ?></p>
+                    </div>
+
+                    <div>
+                        <p class="text-on-surface-variant text-xs mb-0.5">Waktu Pesanan</p>
+                        <p class="font-bold"><?= esc(formatDatetimeIndo($order['created_at'])) ?></p>
                     </div>
 
                     <div>
@@ -186,7 +197,7 @@
                     <?= csrf_field() ?>
 
                     <div class="relative">
-                        <select name="status" class="w-full appearance-none rounded-xl border border-outline-variant dark:border-white/15 py-3 pl-4 pr-10 text-sm bg-surface dark:bg-[#211b1f] text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none cursor-pointer">
+                        <select name="status" class="w-full appearance-none rounded-xl border border-outline-variant dark:border-white/15 py-3 pl-4 pr-10 text-sm bg-surface dark:bg-surface-container text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none cursor-pointer">
                             <?php foreach (['baru', 'diproses', 'selesai', 'dibatalkan'] as $status): ?>
                                 <option value="<?= $status ?>" <?= $order['status'] === $status ? 'selected' : '' ?>>
                                     <?= ucfirst($status) ?>

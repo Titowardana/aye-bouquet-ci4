@@ -7,6 +7,7 @@ use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\ProductVariantModel;
 use App\Models\ProductImageModel;
+use App\Models\ProductColorModel;
 
 class Product extends BaseController
 {
@@ -14,6 +15,7 @@ class Product extends BaseController
     protected CategoryModel $categoryModel;
     protected ProductVariantModel $variantModel;
     protected ProductImageModel $imageModel;
+    protected ProductColorModel $colorModel;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class Product extends BaseController
         $this->categoryModel = new CategoryModel();
         $this->variantModel  = new ProductVariantModel();
         $this->imageModel    = new ProductImageModel();
+        $this->colorModel    = new ProductColorModel();
     }
 
     /**
@@ -78,6 +81,7 @@ class Product extends BaseController
             'pageTitle'  => 'Tambah Produk Baru',
             'activeMenu' => 'produk',
             'categories' => $this->categoryModel->getAllForAdmin(),
+            'colors'     => $this->colorModel->getActiveColors(),
             'validation' => \Config\Services::validation(),
         ];
 
@@ -104,6 +108,10 @@ class Product extends BaseController
         // Generate slug
         $slug = $this->productModel->generateSlug($this->request->getPost('name'));
 
+        $allowedColorNames = array_column($this->colorModel->getActiveColors(), 'name');
+        $color = $this->request->getPost('color');
+        $color = in_array($color, $allowedColorNames, true) ? $color : null;
+
         // Insert product
         $productId = $this->productModel->insert([
             'category_id' => $this->request->getPost('category_id'),
@@ -113,6 +121,7 @@ class Product extends BaseController
             'description' => $this->request->getPost('description'),
             'price'       => $this->request->getPost('price'),
             'status'      => $this->request->getPost('status'),
+            'color'       => $color,
             'is_featured' => $this->request->getPost('is_featured') ? 1 : 0,
             'is_active'   => 1,
         ]);
@@ -191,12 +200,16 @@ class Product extends BaseController
             return redirect()->to(base_url('admin/produk'))->with('error', 'Produk tidak ditemukan.');
         }
 
+        // Get all colors (active + inactive) so existing product colors stay selectable
+        $allColors = $this->colorModel->getAllColors();
+
         $data = [
             'title'      => 'Edit Produk - Aye Bouquet',
             'pageTitle'  => 'Edit Produk',
             'activeMenu' => 'produk',
             'product'    => $product,
             'categories' => $this->categoryModel->getAllForAdmin(),
+            'colors'     => $allColors,
             'validation' => \Config\Services::validation(),
         ];
 
@@ -251,6 +264,21 @@ class Product extends BaseController
             $slug = $this->productModel->generateSlug($this->request->getPost('name'), (int)$id);
         }
 
+        // Allow active colors + preserve existing color even if now inactive
+        $allowedColorNames = array_column($this->colorModel->getActiveColors(), 'name');
+        $existingColor = $product['color'] ?? null;
+        $color = $this->request->getPost('color');
+
+        if (empty($color)) {
+            $color = null;
+        } elseif (in_array($color, $allowedColorNames, true)) {
+            // valid active color — keep as is
+        } elseif ($color === $existingColor) {
+            // preserve existing color even if now inactive — keep as is
+        } else {
+            $color = null;
+        }
+
         // Update product
         $this->productModel->update($id, [
             'category_id' => $this->request->getPost('category_id'),
@@ -260,6 +288,7 @@ class Product extends BaseController
             'description' => $this->request->getPost('description'),
             'price'       => $this->request->getPost('price'),
             'status'      => $this->request->getPost('status'),
+            'color'       => $color,
             'is_featured' => $this->request->getPost('is_featured') ? 1 : 0,
         ]);
 

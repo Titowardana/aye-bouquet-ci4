@@ -16,9 +16,18 @@
         </div>
     <?php endif; ?>
 
+    <!-- Back link -->
+    <div>
+        <a href="<?= base_url('admin/pesanan') ?>"
+           class="inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline">
+            <span class="material-symbols-outlined text-base">arrow_back</span>
+            Kembali ke Pesanan Aktif
+        </a>
+    </div>
+
     <!-- Filter & Search Bar -->
     <div class="bg-surface-container-lowest rounded-2xl p-4 md:p-6 soft-shadow border border-outline-variant/20 dark:border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 card-hover-admin admin-enter">
-        <form method="get" action="<?= base_url('admin/pesanan') ?>" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-grow max-w-4xl w-full">
+        <form method="get" action="<?= base_url('admin/pesanan/arsip') ?>" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-grow max-w-4xl w-full">
             <div class="relative flex items-center flex-grow">
                 <span class="material-symbols-outlined absolute left-4 text-on-surface-variant select-none">search</span>
                 <input type="text" name="search" value="<?= esc($search ?? '') ?>" placeholder="Cari kode, nama, atau no HP..."
@@ -49,15 +58,23 @@
         <span class="text-sm font-bold text-primary">
             <span id="selectedCount">0</span> pesanan dipilih
         </span>
-        <button type="button" id="bulkArchiveBtn"
-                onclick="confirmBulkArchive()"
-                class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-on-primary text-sm font-bold hover:opacity-90 transition shadow-sm cursor-pointer">
-            <span class="material-symbols-outlined text-[18px]">archive</span>
-            Arsipkan Terpilih
-        </button>
+        <div class="flex gap-2">
+            <button type="button" id="bulkRestoreBtn"
+                    onclick="confirmBulkRestore()"
+                    class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-on-primary text-sm font-bold hover:opacity-90 transition shadow-sm cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">unarchive</span>
+                Pulihkan Terpilih
+            </button>
+            <button type="button" id="bulkDeleteBtn"
+                    onclick="confirmBulkDelete()"
+                    class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-error text-on-error text-sm font-bold hover:opacity-90 transition shadow-sm cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">delete_forever</span>
+                Hapus Permanen Terpilih
+            </button>
+        </div>
     </div>
 
-    <!-- Bulk Form wraps both desktop table and mobile cards for checkbox submission -->
+    <!-- Bulk Form wraps both desktop table and mobile cards -->
     <form id="bulkForm" method="post" action="">
         <?= csrf_field() ?>
 
@@ -65,32 +82,10 @@
     <div class="hidden md:block bg-surface-container-lowest rounded-2xl border border-outline-variant/20 soft-shadow overflow-hidden card-hover-admin">
         <div class="p-6 border-b border-outline-variant/20 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h2 class="text-xl font-bold text-primary">Daftar Pesanan</h2>
+                <h2 class="text-xl font-bold text-primary">Arsip Pesanan</h2>
                 <p class="text-sm text-on-surface-variant mt-1">
-                    Pesanan yang masuk dari checkout pelanggan.
+                    Pesanan yang telah diarsipkan. Anda dapat memulihkan atau menghapus permanen.
                 </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-                <?php
-                    $qs = [];
-                    if (!empty($search)) $qs['search'] = $search;
-                    if (!empty($selectedStatus)) $qs['status'] = $selectedStatus;
-                    if (!empty($dateStart)) $qs['date_start'] = $dateStart;
-                    if (!empty($dateEnd)) $qs['date_end'] = $dateEnd;
-                    $queryString = !empty($qs) ? '?' . http_build_query($qs) : '';
-                ?>
-                <a href="<?= base_url('admin/pesanan/arsip') ?>" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-high text-on-surface-variant dark:bg-white/10 dark:text-white/70 hover:bg-surface-container dark:hover:bg-white/15 text-sm font-semibold transition-colors soft-shadow border border-outline-variant/60">
-                    <span class="material-symbols-outlined text-[18px]">archive</span>
-                    Arsip
-                </a>
-                <a href="<?= base_url('admin/pesanan/export-csv') . $queryString ?>" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50 text-sm font-semibold transition-colors soft-shadow border border-green-200 dark:border-green-800">
-                    <span class="material-symbols-outlined text-[18px]">table</span>
-                    Export CSV
-                </a>
-                <a href="<?= base_url('admin/pesanan/print') . $queryString ?>" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 text-sm font-semibold transition-colors soft-shadow border border-blue-200 dark:border-blue-800">
-                    <span class="material-symbols-outlined text-[18px]">print</span>
-                    Print / PDF
-                </a>
             </div>
         </div>
 
@@ -108,7 +103,7 @@
                         <th class="px-6 py-4 font-bold">Metode</th>
                         <th class="px-6 py-4 font-bold">Total</th>
                         <th class="px-6 py-4 font-bold">Status</th>
-                        <th class="px-6 py-4 font-bold">Waktu Pesanan</th>
+                        <th class="px-6 py-4 font-bold">Waktu Arsip</th>
                         <th class="px-6 py-4 font-bold text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -155,7 +150,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-on-surface-variant dark:text-white/60">
-                                    <?= formatDatetimeIndo($order['created_at']) ?>
+                                    <?= formatDatetimeIndo($order['archived_at']) ?>
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
@@ -164,9 +159,14 @@
                                             Detail
                                         </a>
                                         <button type="button"
-                                                onclick="openAdminConfirm({ title: 'Arsipkan Pesanan', message: 'Yakin ingin mengarsipkan pesanan <?= esc($order['order_code']) ?>?', confirmText: 'Ya, Arsipkan', confirmClass: 'bg-primary text-on-primary hover:bg-primary/90', action: '<?= base_url('admin/pesanan/arsip/' . $order['id']) ?>' })"
+                                                onclick="openAdminConfirm({ title: 'Pulihkan Pesanan', message: 'Yakin ingin memulihkan pesanan <?= esc($order['order_code']) ?>?', confirmText: 'Ya, Pulihkan', confirmClass: 'bg-primary text-on-primary hover:bg-primary/90', action: '<?= base_url('admin/pesanan/pulihkan/' . $order['id']) ?>' })"
                                                 class="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20 text-xs font-bold transition cursor-pointer">
-                                            <span class="material-symbols-outlined text-[14px]">archive</span>
+                                            <span class="material-symbols-outlined text-[14px]">unarchive</span>
+                                        </button>
+                                        <button type="button"
+                                                onclick="openAdminConfirm({ title: 'Hapus Permanen', message: 'Yakin ingin menghapus permanen pesanan <?= esc($order['order_code']) ?>? Tindakan ini tidak dapat dibatalkan.', confirmText: 'Ya, Hapus', confirmClass: 'bg-error text-on-error hover:bg-error/90', accentClass: 'absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-error via-error to-error/50', action: '<?= base_url('admin/pesanan/hapus-permanen/' . $order['id']) ?>' })"
+                                                class="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-error/10 text-error hover:bg-error/20 text-xs font-bold transition cursor-pointer">
+                                            <span class="material-symbols-outlined text-[14px]">delete_forever</span>
                                         </button>
                                     </div>
                                 </td>
@@ -175,7 +175,7 @@
                     <?php else: ?>
                         <tr>
                             <td colspan="9" class="px-6 py-12 text-center text-on-surface-variant">
-                                Belum ada pesanan masuk.
+                                Tidak ada pesanan di arsip.
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -191,28 +191,24 @@
 
     <!-- Mobile Card Layout -->
     <div class="md:hidden space-y-4">
-        <div class="flex gap-2">
-            <a href="<?= base_url('admin/pesanan/arsip') ?>" class="flex-1 inline-flex justify-center items-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-high text-on-surface-variant dark:bg-white/10 dark:text-white/70 border border-outline-variant/60 text-sm font-semibold soft-shadow">
-                <span class="material-symbols-outlined text-[18px]">archive</span> Arsip
-            </a>
-            <a href="<?= base_url('admin/pesanan/export-csv') . (!empty($qs) ? '?' . http_build_query($qs) : '') ?>" class="flex-1 inline-flex justify-center items-center gap-1.5 px-4 py-2 rounded-xl bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 text-sm font-semibold border border-green-200 dark:border-green-800 soft-shadow">
-                <span class="material-symbols-outlined text-[18px]">table</span> CSV
-            </a>
-            <a href="<?= base_url('admin/pesanan/print') . (!empty($qs) ? '?' . http_build_query($qs) : '') ?>" target="_blank" class="flex-1 inline-flex justify-center items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-sm font-semibold border border-blue-200 dark:border-blue-800 soft-shadow">
-                <span class="material-symbols-outlined text-[18px]">print</span> Print
-            </a>
-        </div>
 
         <!-- Mobile bulk bar -->
         <div id="mobileBulkBar" class="hidden bg-primary-container/30 dark:bg-primary-fixed-dim/10 rounded-2xl px-4 py-3 flex items-center justify-between border border-primary/20 soft-shadow">
             <span class="text-sm font-bold text-primary">
                 <span id="mobileSelectedCount">0</span> dipilih
             </span>
-            <button type="button" onclick="confirmBulkArchive()"
-                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-on-primary text-xs font-bold hover:opacity-90 transition cursor-pointer">
-                <span class="material-symbols-outlined text-[16px]">archive</span>
-                Arsipkan
-            </button>
+            <div class="flex gap-2">
+                <button type="button" onclick="confirmBulkRestore()"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary text-on-primary text-xs font-bold hover:opacity-90 transition cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">unarchive</span>
+                    Pulihkan
+                </button>
+                <button type="button" onclick="confirmBulkDelete()"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-error text-on-error text-xs font-bold hover:opacity-90 transition cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">delete_forever</span>
+                    Hapus
+                </button>
+            </div>
         </div>
 
         <!-- Mobile select all -->
@@ -244,7 +240,7 @@
                                    class="row-checkbox mt-1 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer">
                             <div>
                                 <span class="block text-primary font-bold text-lg leading-none mb-1.5"><?= esc($order['order_code']) ?></span>
-                                <span class="text-[11px] text-on-surface-variant"><?= formatDatetimeIndo($order['created_at']) ?></span>
+                                <span class="text-[11px] text-on-surface-variant">Diarsipkan: <?= formatDatetimeIndo($order['archived_at']) ?></span>
                             </div>
                         </div>
                         <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border <?= $statusClass ?>">
@@ -274,21 +270,30 @@
                     <div class="flex gap-2">
                         <a href="<?= base_url('admin/pesanan/detail/' . $order['id']) ?>"
                            class="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 text-sm font-bold transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">visibility</span> Lihat Detail
+                            <span class="material-symbols-outlined text-[18px]">visibility</span> Detail
                         </a>
                         <button type="button"
-                                onclick="openAdminConfirm({ title: 'Arsipkan Pesanan', message: 'Yakin ingin mengarsipkan pesanan <?= esc($order['order_code']) ?>?', confirmText: 'Ya, Arsipkan', confirmClass: 'bg-primary text-on-primary hover:bg-primary/90', action: '<?= base_url('admin/pesanan/arsip/' . $order['id']) ?>' })"
+                                onclick="openAdminConfirm({ title: 'Pulihkan Pesanan', message: 'Yakin ingin memulihkan pesanan <?= esc($order['order_code']) ?>?', confirmText: 'Ya, Pulihkan', confirmClass: 'bg-primary text-on-primary hover:bg-primary/90', action: '<?= base_url('admin/pesanan/pulihkan/' . $order['id']) ?>' })"
                                 class="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-surface-container-high text-on-surface-variant hover:bg-surface-container dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/20 text-sm font-bold transition cursor-pointer">
-                            <span class="material-symbols-outlined text-[18px]">archive</span>
+                            <span class="material-symbols-outlined text-[18px]">unarchive</span>
+                        </button>
+                        <button type="button"
+                                onclick="openAdminConfirm({ title: 'Hapus Permanen', message: 'Yakin ingin menghapus permanen pesanan <?= esc($order['order_code']) ?>? Tindakan ini tidak dapat dibatalkan.', confirmText: 'Ya, Hapus', confirmClass: 'bg-error text-on-error hover:bg-error/90', accentClass: 'absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-error via-error to-error/50', action: '<?= base_url('admin/pesanan/hapus-permanen/' . $order['id']) ?>' })"
+                                class="inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-error/10 text-error hover:bg-error/20 text-sm font-bold transition cursor-pointer">
+                            <span class="material-symbols-outlined text-[18px]">delete_forever</span>
                         </button>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
             <div class="bg-surface-container-lowest rounded-2xl p-8 text-center border border-outline-variant/20 soft-shadow">
-                <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-3 block">receipt_long</span>
-                <h3 class="text-sm font-bold text-on-surface">Belum ada pesanan</h3>
-                <p class="text-xs text-on-surface-variant mt-1 mb-4">Pesanan dari checkout pelanggan akan tampil di sini.</p>
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-3 block">archive</span>
+                <h3 class="text-sm font-bold text-on-surface">Arsip kosong</h3>
+                <p class="text-xs text-on-surface-variant mt-1 mb-4">Belum ada pesanan yang diarsipkan.</p>
+                <a href="<?= base_url('admin/pesanan') ?>" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-primary text-on-primary text-sm font-bold hover:opacity-90 transition">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Kembali ke Pesanan Aktif
+                </a>
             </div>
         <?php endif; ?>
         <?php if (!empty($orders) && isset($pager) && $pager->getPageCount('admin_pagination') > 1): ?>
@@ -296,7 +301,7 @@
             <?= $pager->links('admin_pagination', 'admin_pagination') ?>
         </div>
         <?php endif; ?>
-    </div><!-- /mobile -->
+    </div>
 
     </form><!-- /bulkForm -->
 
@@ -354,17 +359,34 @@ function toggleAll(source) {
     updateBulkSelection();
 }
 
-function confirmBulkArchive() {
+function confirmBulkRestore() {
     var checked = document.querySelectorAll('.row-checkbox:checked');
     if (checked.length === 0) return;
     openAdminConfirm({
-        title: 'Arsipkan Pesanan Terpilih',
-        message: 'Yakin ingin mengarsipkan ' + checked.length + ' pesanan terpilih? Pesanan akan dipindahkan ke arsip.',
-        confirmText: 'Ya, Arsipkan',
+        title: 'Pulihkan Pesanan Terpilih',
+        message: 'Yakin ingin memulihkan ' + checked.length + ' pesanan terpilih? Pesanan akan kembali ke daftar aktif.',
+        confirmText: 'Ya, Pulihkan',
         confirmClass: 'bg-primary text-on-primary hover:bg-primary/90',
         onConfirm: function() {
             var form = document.getElementById('bulkForm');
-            form.action = '<?= base_url('admin/pesanan/bulk-archive') ?>';
+            form.action = '<?= base_url('admin/pesanan/arsip/bulk-restore') ?>';
+            form.submit();
+        }
+    });
+}
+
+function confirmBulkDelete() {
+    var checked = document.querySelectorAll('.row-checkbox:checked');
+    if (checked.length === 0) return;
+    openAdminConfirm({
+        title: 'Hapus Permanen Terpilih',
+        message: 'Yakin ingin menghapus permanen ' + checked.length + ' pesanan terpilih? Data akan dihapus permanen dan tidak bisa dikembalikan.',
+        confirmText: 'Ya, Hapus',
+        confirmClass: 'bg-error text-on-error hover:bg-error/90',
+        accentClass: 'absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-error via-error to-error/50',
+        onConfirm: function() {
+            var form = document.getElementById('bulkForm');
+            form.action = '<?= base_url('admin/pesanan/arsip/bulk-delete') ?>';
             form.submit();
         }
     });

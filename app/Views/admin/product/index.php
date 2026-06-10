@@ -34,31 +34,37 @@
 </div>
 
 <!-- Toolbar: Search, Filters & Add Product -->
-<div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 card-hover-admin admin-enter">
+<div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 card-hover-admin admin-enter">
     <!-- Left: Search & Filter Categories -->
     <form method="get" action="<?= base_url('admin/produk') ?>" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-grow max-w-3xl w-full">
         <!-- Search Input -->
         <div class="relative flex items-center flex-grow">
             <span class="material-symbols-outlined absolute left-4 text-on-surface-variant select-none">search</span>
             <input type="text" name="search" value="<?= esc($search ?? '') ?>" placeholder="Cari nama produk atau SKU..." 
-                   class="w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest dark:bg-white/5 text-sm text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40">
+                   class="admin-filter-input w-full pl-12 pr-4 py-3 rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest text-sm text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary shadow-sm outline-none transition-all placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40">
         </div>
         <!-- Filters Stack: Kategori & Status (Vertikal di Mobile, Horizontal di Desktop/Tablet) -->
         <div class="flex flex-col sm:flex-row items-stretch gap-3">
             <!-- Category Filter -->
-            <select name="category" onchange="this.form.submit()" class="rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest dark:bg-[#211b1f] text-sm text-on-surface dark:text-white px-4 py-3 focus:border-primary focus:ring-primary shadow-sm transition-all">
-                <option value="">Semua Kategori</option>
-                <?php foreach ($categories as $cat): ?>
-                <option value="<?= esc($cat['id']) ?>" <?= ($selectedCategory ?? '') == $cat['id'] ? 'selected' : '' ?>><?= esc($cat['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
+            <div class="relative">
+                <select name="category" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-3 rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest text-sm text-on-surface dark:text-white focus:border-primary focus:ring-primary shadow-sm transition-all cursor-pointer">
+                    <option value="">Semua Kategori</option>
+                    <?php foreach ($categories as $cat): ?>
+                    <option value="<?= esc($cat['id']) ?>" <?= ($selectedCategory ?? '') == $cat['id'] ? 'selected' : '' ?>><?= esc($cat['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+            </div>
             <!-- Status Filter (Server-side) -->
-            <select name="status" onchange="this.form.submit()" class="rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest dark:bg-[#211b1f] text-sm text-on-surface dark:text-white px-4 py-3 focus:border-primary focus:ring-primary shadow-sm transition-all">
-                <option value="">Semua Status</option>
-                <option value="ready" <?= ($selectedStatus ?? '') === 'ready' ? 'selected' : '' ?>>Ready</option>
-                <option value="pre-order" <?= ($selectedStatus ?? '') === 'pre-order' ? 'selected' : '' ?>>Pre-order</option>
-                <option value="habis" <?= ($selectedStatus ?? '') === 'habis' ? 'selected' : '' ?>>Habis</option>
-            </select>
+            <div class="relative">
+                <select name="status" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-3 rounded-xl border border-outline-variant/60 dark:border-white/15 bg-surface-container-lowest text-sm text-on-surface dark:text-white focus:border-primary focus:ring-primary shadow-sm transition-all cursor-pointer">
+                    <option value="">Semua Status</option>
+                    <option value="ready" <?= ($selectedStatus ?? '') === 'ready' ? 'selected' : '' ?>>Ready</option>
+                    <option value="pre-order" <?= ($selectedStatus ?? '') === 'pre-order' ? 'selected' : '' ?>>Pre-order</option>
+                    <option value="habis" <?= ($selectedStatus ?? '') === 'habis' ? 'selected' : '' ?>>Habis</option>
+                </select>
+                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+            </div>
         </div>
     </form>
 
@@ -71,7 +77,7 @@
 <!-- ==========================================
      DESKTOP LAYOUT (Table & Container)
      ========================================== -->
-<div class="hidden md:block bg-surface-container-lowest dark:bg-on-background rounded-2xl soft-shadow border border-outline-variant/20 overflow-hidden card-hover-admin admin-enter admin-enter-delay-1">
+<div class="hidden md:block bg-surface-container-lowest admin-dark-card rounded-2xl soft-shadow border border-outline-variant/20 overflow-hidden card-hover-admin admin-enter admin-enter-delay-1">
     <div class="overflow-x-auto">
         <table class="w-full text-left text-sm whitespace-nowrap">
             <thead>
@@ -80,6 +86,7 @@
                     <th class="py-4 px-6">Produk</th>
                     <th class="py-4 px-6">Kategori</th>
                     <th class="py-4 px-6">Ukuran</th>
+                    <th class="py-4 px-6">Warna</th>
                     <th class="py-4 px-6">Harga</th>
                     <th class="py-4 px-6">Status</th>
                     <th class="py-4 px-6 text-right">Aksi</th>
@@ -126,6 +133,27 @@
                                 <?php endif; ?>
                             </div>
                         </td>
+                        <td class="py-4 px-6">
+                            <?php if (!empty($product['color'])): ?>
+                            <?php
+                                $colorMap = [
+                                    'Pink'   => ['bg' => '#ec5aa6', 'text' => '#ffffff'],
+                                    'Merah'  => ['bg' => '#e52525', 'text' => '#ffffff'],
+                                    'Putih'  => ['bg' => '#ffffff', 'text' => '#1b1c1c'],
+                                    'Biru'   => ['bg' => '#3b82f6', 'text' => '#ffffff'],
+                                    'Ungu'   => ['bg' => '#a855f7', 'text' => '#ffffff'],
+                                    'Kuning' => ['bg' => '#facc15', 'text' => '#1b1c1c'],
+                                ];
+                                $c = $colorMap[$product['color']] ?? ['bg' => '#e4e2e2', 'text' => '#1b1c1c'];
+                            ?>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold border border-outline-variant/30" style="background-color: <?= $c['bg'] ?>; color: <?= $c['text'] ?>;">
+                                <span class="w-2 h-2 rounded-full" style="background-color: <?= $c['bg'] ?>; border: 1px solid <?= $c['text'] ?>20;"></span>
+                                <?= esc($product['color']) ?>
+                            </span>
+                            <?php else: ?>
+                            <span class="text-xs text-on-surface-variant">-</span>
+                            <?php endif; ?>
+                        </td>
                         <td class="py-4 px-6 font-bold text-primary dark:text-primary-fixed-dim text-sm">Rp <?= number_format($product['price'], 0, ',', '.') ?></td>
                         <td class="py-4 px-6">
                             <?php
@@ -163,7 +191,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7" class="py-12 text-center">
+                        <td colspan="8" class="py-12 text-center">
                             <div class="flex flex-col items-center gap-3">
                                 <span class="material-symbols-outlined text-4xl text-on-surface-variant/40">inventory_2</span>
                                 <span class="text-sm text-on-surface-variant">Belum ada produk. Mulai tambahkan produk pertama Anda!</span>
@@ -202,7 +230,7 @@
             $cls = $statusClasses[$product['status']] ?? $statusClasses['ready'];
             $lbl = $statusLabels[$product['status']] ?? $product['status'];
         ?>
-        <div class="product-card-mobile bg-surface-container-lowest dark:bg-on-background rounded-2xl p-5 soft-shadow border border-outline-variant/20 flex flex-col gap-4">
+        <div class="product-card-mobile bg-surface-container-lowest admin-dark-card rounded-2xl p-5 soft-shadow border border-outline-variant/20 flex flex-col gap-4">
             <!-- Upper Area: Image & Info -->
             <div class="flex gap-4">
                 <!-- Image Wrapper -->
@@ -284,7 +312,7 @@
 
         <!-- Mobile Pagination Container -->
         <?php if (isset($pager)): ?>
-        <div class="p-4 bg-surface-container-lowest dark:bg-on-background rounded-2xl border border-outline-variant/20 soft-shadow flex flex-col items-center justify-between gap-4">
+        <div class="p-4 bg-surface-container-lowest admin-dark-card rounded-2xl border border-outline-variant/20 soft-shadow flex flex-col items-center justify-between gap-4">
             <span class="text-xs text-on-surface-variant">Menampilkan <?= count($products) ?> produk</span>
             <div class="flex items-center gap-2">
                 <?= $pager->links('default', 'admin_pagination') ?>
@@ -293,7 +321,7 @@
         <?php endif; ?>
 
     <?php else: ?>
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-8 text-center border border-outline-variant/20 soft-shadow">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-8 text-center border border-outline-variant/20 soft-shadow">
             <span class="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-3 block">inventory_2</span>
             <h3 class="text-sm font-bold text-on-surface">Belum ada produk</h3>
             <p class="text-xs text-on-surface-variant mt-1 mb-4">Tambahkan produk pertama untuk mulai mengisi katalog.</p>

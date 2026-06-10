@@ -35,7 +35,7 @@
 </div>
 
 <!-- Controls Bar -->
-<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 bg-surface-container-lowest p-4 rounded-xl shadow-[0_4px_20px_0_rgba(121,84,101,0.05)] border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-1">
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-8 bg-surface-container-lowest p-4 rounded-xl shadow-[0_4px_20px_0_rgba(121,84,101,0.05)] dark:shadow-none border border-outline-variant/20 dark:border-white/10 card-hover-admin admin-enter admin-enter-delay-1">
     <a href="<?= base_url('admin/galeri/create') ?>" class="flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-label-md text-label-md hover:bg-surface-tint hover:shadow-md transition-all active:scale-95 whitespace-nowrap">
         <span class="material-symbols-outlined text-[20px]">add</span>
         Tambah Foto Galeri
@@ -45,11 +45,11 @@
         <!-- Search -->
         <div class="relative w-full sm:w-64">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-            <input name="search" value="<?= esc($search ?? '') ?>" class="w-full pl-10 pr-4 py-2.5 bg-surface rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md" placeholder="Cari foto galeri..." type="text">
+            <input name="search" value="<?= esc($search ?? '') ?>" class="admin-filter-input w-full pl-10 pr-4 py-2.5 bg-surface rounded-lg border border-outline-variant/50 dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-sm dark:text-white dark:placeholder:text-white/40" placeholder="Cari foto galeri..." type="text">
         </div>
         <!-- Category Filter -->
         <div class="relative w-full sm:w-48">
-            <select name="category" onchange="this.form.submit()" class="w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md appearance-none">
+            <select name="category" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant/50 dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-sm dark:text-white">
                 <option value="">Semua Kategori</option>
                 <?php
                 $catOptions = [
@@ -66,7 +66,7 @@
         </div>
         <!-- Status Filter -->
         <div class="relative w-full sm:w-48">
-            <select name="status" onchange="this.form.submit()" class="w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-body-md appearance-none">
+            <select name="status" onchange="this.form.submit()" class="admin-filter-select w-full pl-4 pr-10 py-2.5 bg-surface rounded-lg border border-outline-variant/50 dark:border-white/15 focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md text-sm dark:text-white">
                 <option value="">Semua Status</option>
                 <option value="1" <?= ($selectedStatus ?? '') === '1' ? 'selected' : '' ?>>Tampil</option>
                 <option value="0" <?= ($selectedStatus ?? '') === '0' ? 'selected' : '' ?>>Disembunyikan</option>
@@ -82,7 +82,7 @@
     <?php if (!empty($galleries)): ?>
         <?php foreach ($galleries as $gal): ?>
             <!-- Card -->
-            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_0_rgba(121,84,101,0.05)] hover:shadow-[0_8px_30px_0_rgba(121,84,101,0.1)] transition-all hover:-translate-y-1 group flex flex-col border border-outline-variant/20">
+            <div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_20px_0_rgba(121,84,101,0.05)] hover:shadow-[0_8px_30px_0_rgba(121,84,101,0.1)] dark:shadow-none transition-all hover:-translate-y-1 group flex flex-col border border-outline-variant/20 dark:border-white/10">
                 <div class="relative h-48 overflow-hidden bg-secondary-container">
                     <img src="<?= base_url('uploads/galleries/' . esc($gal['image'])) ?>" alt="<?= esc($gal['title']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     
@@ -151,7 +151,7 @@
 <!-- Pagination -->
 <?php if (isset($pager)): ?>
 <div class="mt-8 flex justify-center items-center gap-2">
-    <?= $pager->links('default', 'admin_pagination') ?>
+    <?= $pager->links('admin_pagination', 'admin_pagination') ?>
 </div>
 <?php endif; ?>
 

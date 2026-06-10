@@ -55,9 +55,17 @@ class CustomOption extends BaseController
             return redirect()->back()->withInput()->with('error', 'Data tidak valid. Pastikan semua field terisi dengan benar.');
         }
 
+        $type = $this->request->getPost('type');
+        $name = $this->request->getPost('name');
+
+        $existing = $this->customOptionModel->where('type', $type)->where('name', $name)->first();
+        if ($existing) {
+            return redirect()->back()->withInput()->with('error', 'Opsi dengan type "' . $type . '" dan nama "' . $name . '" sudah ada.');
+        }
+
         $this->customOptionModel->save([
-            'type'             => $this->request->getPost('type'),
-            'name'             => $this->request->getPost('name'),
+            'type'             => $type,
+            'name'             => $name,
             'additional_price' => $this->request->getPost('additional_price'),
             'sort_order'       => $this->request->getPost('sort_order'),
             'is_active'        => $this->request->getPost('status') === 'aktif' ? 1 : 0,
@@ -77,9 +85,17 @@ class CustomOption extends BaseController
             return redirect()->back()->withInput()->with('error', 'Data tidak valid.');
         }
 
+        $type = $this->request->getPost('type');
+        $name = $this->request->getPost('name');
+
+        $existing = $this->customOptionModel->where('type', $type)->where('name', $name)->where('id !=', $id)->first();
+        if ($existing) {
+            return redirect()->back()->withInput()->with('error', 'Opsi dengan type "' . $type . '" dan nama "' . $name . '" sudah ada.');
+        }
+
         $this->customOptionModel->update($id, [
-            'type'             => $this->request->getPost('type'),
-            'name'             => $this->request->getPost('name'),
+            'type'             => $type,
+            'name'             => $name,
             'additional_price' => $this->request->getPost('additional_price'),
             'sort_order'       => $this->request->getPost('sort_order'),
             'is_active'        => $this->request->getPost('status') === 'aktif' ? 1 : 0,

@@ -62,13 +62,13 @@
                     <!-- Input: Nama Kategori -->
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface dark:text-white mb-2" for="categoryName">Nama Kategori <span class="text-error">*</span></label>
-                        <input name="name" id="categoryName" value="<?= old('name') ?>" class="w-full bg-surface-bright dark:bg-white/5 border border-outline-variant dark:border-white/15 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" placeholder="Cth: Buket Bunga" type="text" required>
+                        <input name="name" id="categoryName" value="<?= old('name') ?>" class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant" placeholder="Cth: Buket Bunga" type="text" required>
                     </div>
 
                     <!-- Input: Slug Kategori -->
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface dark:text-white mb-2" for="categorySlug">Slug Kategori</label>
-                        <input name="slug" id="categorySlug" value="<?= old('slug') ?>" class="w-full bg-surface-bright dark:bg-white/5 border border-outline-variant dark:border-white/15 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" placeholder="Cth: buket-bunga" type="text">
+                        <input name="slug" id="categorySlug" value="<?= old('slug') ?>" class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant" placeholder="Cth: buket-bunga" type="text">
                         <p class="font-label-sm text-label-sm text-secondary dark:text-white/60 mt-1">URL friendly name, otomatis digenerate jika kosong.</p>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 <!-- Textarea: Deskripsi -->
                 <div>
                     <label class="block font-label-md text-label-md text-on-surface dark:text-white mb-2" for="categoryDesc">Deskripsi Singkat</label>
-                    <textarea name="description" id="categoryDesc" class="w-full bg-surface-bright dark:bg-white/5 border border-outline-variant dark:border-white/15 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow resize-none placeholder:text-on-surface-variant/50 dark:placeholder:text-white/40" placeholder="Masukkan deskripsi kategori di sini..." rows="4"><?= old('description') ?></textarea>
+                    <textarea name="description" id="categoryDesc" class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all resize-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline-variant" placeholder="Masukkan deskripsi kategori di sini..." rows="4"><?= old('description') ?></textarea>
                     <div class="flex justify-between mt-1">
                         <p class="font-label-sm text-label-sm text-secondary dark:text-white/60">Penjelasan singkat tentang kategori produk.</p>
                     </div>
@@ -110,7 +110,7 @@
                     <!-- Input: Urutan -->
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface dark:text-white mb-2" for="categoryOrder">Urutan Tampil</label>
-                        <input name="sort_order" id="categoryOrder" value="<?= old('sort_order', '1') ?>" class="w-24 bg-surface-bright dark:bg-white/5 border border-outline-variant dark:border-white/15 rounded-lg px-4 py-2 font-body-md text-body-md text-on-surface dark:text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" type="number" min="1">
+                        <input name="sort_order" id="categoryOrder" value="<?= old('sort_order', '1') ?>" class="w-24 bg-surface-container-lowest border border-outline-variant rounded-xl px-4 py-2 font-body-md text-body-md text-on-surface shadow-sm outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary" type="number" min="1">
                     </div>
                 </div>
             </div>

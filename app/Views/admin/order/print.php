@@ -113,7 +113,7 @@
             <tr>
                 <th>No</th>
                 <th>Kode Order</th>
-                <th>Tgl Order</th>
+                <th>Waktu Pesanan</th>
                 <th>Nama Customer</th>
                 <th>No WhatsApp</th>
                 <th>Status</th>

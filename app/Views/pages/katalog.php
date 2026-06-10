@@ -25,7 +25,7 @@
 
 <!-- Page wrapper: sidebar + content -->
 <form action="<?= base_url('/katalog') ?>" method="GET" id="filterForm">
-<div class="w-full px-6 md:px-12 lg:px-16 mx-auto py-12 flex flex-col md:flex-row gap-8">
+<div class="w-full px-6 md:px-12 lg:px-16 mx-auto py-12 flex flex-col md:flex-row gap-8 bg-warm-cream dark:bg-[#1c191a]">
 
     <!-- Mobile Filter Overlay -->
     <div id="mobile-filter-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
@@ -33,28 +33,28 @@
     <!-- ══════════════════════════════════════
          LEFT SIDEBAR: FILTERS
          ══════════════════════════════════════ -->
-    <aside id="filter-sidebar" class="fixed inset-y-0 right-0 z-[70] w-[85%] max-w-sm bg-surface transform translate-x-full transition-transform duration-300 md:static md:translate-x-0 md:z-auto md:w-64 md:bg-transparent overflow-y-auto md:overflow-visible flex-shrink-0 shadow-2xl md:shadow-none mb-8 md:mb-0">
+    <aside id="filter-sidebar" class="fixed inset-y-0 right-0 z-[70] w-[85%] max-w-sm bg-white-warm dark:bg-[#262024] transform translate-x-full transition-transform duration-300 md:static md:translate-x-0 md:z-auto md:w-64 md:bg-transparent overflow-y-auto md:overflow-visible flex-shrink-0 shadow-2xl md:shadow-none mb-8 md:mb-0">
         
         <!-- Mobile close header -->
-        <div class="md:hidden flex justify-between items-center p-5 border-b border-outline-variant sticky top-0 bg-surface z-10">
+        <div class="md:hidden flex justify-between items-center p-5 border-b border-soft-beige/30 dark:border-white/10 sticky top-0 bg-white-warm dark:bg-[#2a2328] z-10">
             <h2 class="font-headline-md text-lg font-bold text-on-surface flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary" style="font-size:20px">tune</span>
                 Filter Produk
             </h2>
-            <button type="button" id="close-filter-btn" class="p-2 -mr-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-variant transition-colors flex items-center justify-center" aria-label="Tutup filter">
+            <button type="button" id="close-filter-btn" class="p-2 -mr-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-soft-beige/30 dark:hover:bg-[#332b30] transition-colors flex items-center justify-center" aria-label="Tutup filter">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
 
-        <div class="bg-surface md:rounded-2xl p-6 md:card-shadow border-0 md:border border-surface-container md:sticky top-24">
+        <div class="bg-white-warm dark:bg-[#262024] md:rounded-2xl p-6 md:card-shadow border-0 md:border border-soft-beige/30 dark:border-white/10 md:sticky top-24">
             <!-- Desktop Header -->
-            <h2 class="hidden md:flex font-headline-md text-lg font-bold text-on-surface mb-6 border-b border-outline-variant pb-4 items-center gap-2">
+            <h2 class="hidden md:flex font-headline-md text-lg font-bold text-on-surface mb-6 border-b border-soft-beige/30 dark:border-white/10 pb-4 items-center gap-2">
                 <span class="material-symbols-outlined text-primary" style="font-size:20px">filter_list</span>
                 Filter Produk
             </h2>
 
             <!-- Kategori -->
-            <div class="mb-6 pb-6 border-b border-outline-variant">
+            <div class="mb-6 pb-6 border-b border-soft-beige/30 dark:border-white/10">
                 <h3 class="font-label-md text-xs font-extrabold text-on-surface-variant mb-3 uppercase tracking-widest">Kategori</h3>
                 <div class="flex flex-col gap-2.5">
                     <label class="flex items-center gap-3 cursor-pointer group">
@@ -81,7 +81,7 @@
             </div>
 
             <!-- Ukuran -->
-            <div class="mb-6 pb-6 border-b border-outline-variant">
+            <div class="mb-6 pb-6 border-b border-soft-beige/30 dark:border-white/10">
                 <h3 class="font-label-md text-xs font-extrabold text-on-surface-variant mb-3 uppercase tracking-widest">Ukuran</h3>
                 <div class="flex flex-wrap gap-2">
                     <?php
@@ -90,7 +90,7 @@
                     foreach (['S', 'M', 'L', 'XL', 'XXL', 'Jumbo'] as $size): ?>
                         <label class="cursor-pointer">
                             <input type="checkbox" name="ukuran[]" value="<?= esc($size) ?>" onchange="if(window.innerWidth >= 768) this.form.submit();" class="peer hidden" <?= in_array($size, $selectedUkuran) ? 'checked' : '' ?>>
-                            <div class="px-3.5 py-1.5 rounded-full border border-outline-variant text-xs font-semibold text-on-surface-variant bg-surface-container-lowest peer-checked:border-primary peer-checked:bg-primary peer-checked:text-on-primary hover:border-primary hover:text-primary transition-all duration-200 shadow-sm">
+                            <div class="px-3.5 py-1.5 rounded-full border border-outline-variant text-xs font-semibold text-on-surface-variant bg-white-warm dark:bg-[#2a2328] peer-checked:border-primary peer-checked:bg-primary peer-checked:text-on-primary hover:border-primary hover:text-primary transition-all duration-200 shadow-sm">
                                 <?= esc($size) ?>
                             </div>
                         </label>
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Rentang Harga -->
-            <div class="mb-6 pb-6 border-b border-outline-variant">
+            <div class="mb-6 pb-6 border-b border-soft-beige/30 dark:border-white/10">
                 <h3 class="font-label-md text-xs font-extrabold text-on-surface-variant mb-3 uppercase tracking-widest">Rentang Harga</h3>
                 <div class="flex flex-col gap-2.5">
                     <?php
@@ -126,20 +126,18 @@
             </div>
 
             <!-- Warna -->
-            <div class="mb-6 pb-6 border-b border-outline-variant">
+            <div class="mb-6 pb-6 border-b border-soft-beige/30 dark:border-white/10">
                 <h3 class="font-label-md text-xs font-extrabold text-on-surface-variant mb-3 uppercase tracking-widest">Warna</h3>
                 <div class="flex gap-2.5 flex-wrap">
+                    <?php $selectedColor = $filters['warna'] ?? ''; ?>
+                    <?php foreach ($colors as $color): ?>
                     <?php
-                    $colors = [
-                        'Pink' => 'bg-pink-400', 'Merah' => 'bg-red-600', 'Putih' => 'bg-white',
-                        'Biru' => 'bg-blue-500', 'Ungu' => 'bg-purple-500', 'Kuning' => 'bg-yellow-400'
-                    ];
-                    $selectedColor = $filters['warna'] ?? '';
+                    $hex = $color['hex_code'] ?? '#f0f0f0';
+                    $isWhite = strtolower(ltrim($hex, '#')) === 'ffffff';
                     ?>
-                    <?php foreach($colors as $colorName => $colorClass): ?>
                     <label class="cursor-pointer">
-                        <input type="radio" name="warna" value="<?= $colorName ?>" onchange="if(window.innerWidth >= 768) this.form.submit();" class="peer hidden" <?= $selectedColor === $colorName ? 'checked' : '' ?>>
-                        <div aria-label="<?= $colorName ?>" class="w-8 h-8 rounded-full <?= $colorClass ?> <?= $colorName == 'Putih' ? 'border border-outline-variant' : 'border-2 border-transparent' ?> peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:outline-offset-2 hover:outline hover:outline-2 hover:outline-primary hover:outline-offset-2 transition-all duration-200"></div>
+                        <input type="radio" name="warna" value="<?= esc($color['name']) ?>" onchange="if(window.innerWidth >= 768) this.form.submit();" class="peer hidden" <?= $selectedColor === $color['name'] ? 'checked' : '' ?>>
+                        <div aria-label="<?= esc($color['name']) ?>" class="w-8 h-8 rounded-full <?= $isWhite ? 'border border-outline-variant' : 'border-2 border-transparent' ?> peer-checked:outline peer-checked:outline-2 peer-checked:outline-primary peer-checked:outline-offset-2 hover:outline hover:outline-2 hover:outline-primary hover:outline-offset-2 transition-all duration-200" style="background-color: <?= $hex ?>"></div>
                     </label>
                     <?php endforeach; ?>
                 </div>
@@ -169,7 +167,7 @@
             </button>
 
             <!-- Reset Button -->
-            <a href="<?= base_url('/katalog') ?>" class="mt-4 md:mt-6 w-full py-2.5 rounded-full border border-outline-variant text-on-surface-variant text-sm font-semibold hover:bg-surface-container hover:text-primary transition-all duration-200 flex items-center justify-center gap-2">
+            <a href="<?= base_url('/katalog') ?>" class="mt-4 md:mt-6 w-full py-2.5 rounded-full border border-soft-beige/30 dark:border-white/10 text-on-surface-variant text-sm font-semibold hover:bg-white-warm dark:hover:bg-[#2a2328] hover:text-primary transition-all duration-200 flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined text-base">refresh</span>
                 Reset Filter
             </a>
@@ -188,9 +186,9 @@
         </div>
 
         <!-- Search & Sort bar -->
-        <div class="flex flex-col sm:flex-row justify-between gap-4 mb-8 bg-surface p-4 rounded-2xl card-shadow border border-surface-container items-center">
+        <div class="flex flex-col sm:flex-row justify-between gap-4 mb-8 bg-white-warm dark:bg-[#2a2328] p-4 rounded-2xl card-shadow border border-soft-beige/30 dark:border-white/10 items-center">
             <!-- Search -->
-            <div class="relative w-full sm:max-w-sm flex items-center border border-outline-variant rounded-full bg-surface-container-lowest px-4 py-2.5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+            <div class="relative w-full sm:max-w-sm flex items-center border border-soft-beige/30 dark:border-white/10 rounded-full bg-white-warm dark:bg-[#2a2328] px-4 py-2.5 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
                 <span class="material-symbols-outlined text-on-surface-variant mr-2 text-lg select-none">search</span>
                 <input id="catalog-search"
                        type="text"
@@ -198,12 +196,12 @@
                        value="<?= esc($search ?? '') ?>"
                        onkeydown="if(event.key==='Enter') this.form.submit();"
                        placeholder="Cari produk..."
-                       class="bg-transparent border-0 p-0 text-sm focus:ring-0 w-full text-on-surface outline-none placeholder:text-on-surface-variant/60">
+                       class="bg-transparent border-0 p-0 text-sm focus:ring-0 w-full text-on-surface outline-none placeholder:text-gray-400 dark:placeholder:text-gray-300">
             </div>
             <!-- Sort & Filter Mobile -->
             <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
                 <!-- Mobile Filter Toggle Button -->
-                <button type="button" id="open-filter-btn" class="md:hidden flex items-center gap-2 px-4 py-2.5 rounded-full border border-outline-variant bg-surface-container-lowest text-sm font-bold text-on-surface hover:bg-surface-container transition-colors shadow-sm whitespace-nowrap">
+                <button type="button" id="open-filter-btn" class="md:hidden flex items-center gap-2 px-4 py-2.5 rounded-full border border-soft-beige/30 dark:border-white/10 bg-white-warm dark:bg-[#2a2328] text-sm font-bold text-on-surface hover:bg-white-warm dark:hover:bg-[#332b30] transition-colors shadow-sm whitespace-nowrap">
                     <span class="material-symbols-outlined text-[18px]">tune</span>
                     Filter
                 </button>
@@ -211,7 +209,7 @@
                 <div class="flex items-center gap-2 w-full sm:w-auto flex-grow sm:flex-grow-0">
                     <span class="hidden sm:inline font-label-md text-xs font-bold text-on-surface-variant whitespace-nowrap uppercase tracking-wider">Urutkan:</span>
                     <select id="catalog-sort" name="sort" onchange="document.getElementById('filterForm').submit()"
-                            class="w-full sm:w-48 px-4 py-2.5 rounded-full border border-outline-variant bg-surface-container-lowest text-sm text-on-surface focus:border-primary focus:ring-0 outline-none cursor-pointer shadow-sm">
+                            class="w-full sm:w-48 px-4 py-2.5 rounded-full border border-soft-beige/30 dark:border-white/10 bg-white-warm dark:bg-[#2a2328] text-sm text-on-surface focus:border-primary focus:ring-0 outline-none cursor-pointer shadow-sm">
                         <option value="terbaru" <?= (isset($_GET['sort']) && $_GET['sort'] == 'terbaru') ? 'selected' : '' ?>>Terbaru</option>
                         <option value="harga_rendah" <?= (isset($_GET['sort']) && $_GET['sort'] == 'harga_rendah') ? 'selected' : '' ?>>Harga Terendah</option>
                         <option value="harga_tinggi" <?= (isset($_GET['sort']) && $_GET['sort'] == 'harga_tinggi') ? 'selected' : '' ?>>Harga Tertinggi</option>
@@ -224,7 +222,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-stagger>
             <?php if(!empty($products)): ?>
             <?php foreach ($products as $product): ?>
-                <article class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow border border-surface-container flex flex-col group transition-all duration-300 hover:-translate-y-1 card-hover animate-on-scroll">
+                <article class="bg-white-warm dark:bg-[#262024] rounded-2xl overflow-hidden card-shadow border border-soft-beige/30 dark:border-white/10 flex flex-col group transition-all duration-300 hover:-translate-y-1 card-hover animate-on-scroll">
                     <!-- Product Image -->
                     <div class="aspect-[4/5] bg-surface-container-high relative overflow-hidden">
                         <img
@@ -257,7 +255,7 @@
                         <p class="text-xs text-on-surface-variant font-medium mb-auto pb-3">
                             <?= esc($product['sku'] ?? 'SKU N/A') ?>
                         </p>
-                        <div class="flex justify-between items-center pt-3 border-t border-surface-container mt-3">
+                        <div class="flex justify-between items-center pt-3 border-t border-soft-beige/30 dark:border-white/10 mt-3">
                             <div>
                                 <span class="block text-[10px] text-on-surface-variant font-semibold">Mulai dari</span>
                                 <span class="font-body-lg text-base font-extrabold text-on-surface">
@@ -274,7 +272,13 @@
                 </article>
             <?php endforeach; ?>
             <?php else: ?>
-                <div class="col-span-full text-center py-12 text-on-surface-variant">Tidak ada produk ditemukan.</div>
+                <div class="col-span-full text-center py-12 text-on-surface-variant bg-white-warm dark:bg-[#262024] rounded-2xl card-shadow border border-soft-beige/30 dark:border-white/10">
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="material-symbols-outlined text-4xl text-on-surface-variant/50">inventory_2</span>
+                        <p class="text-sm font-medium">Tidak ada produk ditemukan.</p>
+                        <a href="<?= base_url('/katalog') ?>" class="text-primary text-sm font-bold hover:underline">Reset filter</a>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
 

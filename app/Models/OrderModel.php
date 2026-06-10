@@ -26,6 +26,8 @@ class OrderModel extends Model
         'total_items',
         'status',
         'wa_message',
+        'is_archived',
+        'archived_at',
     ];
 
     protected $useTimestamps = true;
@@ -37,9 +39,27 @@ class OrderModel extends Model
         return 'ORD-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -6));
     }
 
-    public function getFilteredOrders(array $filters = [], int $perPage = 15)
+    public function archive(int $id): bool
+    {
+        return $this->update($id, [
+            'is_archived' => 1,
+            'archived_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
+
+    public function restore(int $id): bool
+    {
+        return $this->update($id, [
+            'is_archived' => 0,
+            'archived_at' => null,
+        ]);
+    }
+
+    public function getFilteredOrders(array $filters = [], int $perPage = 15, bool $archived = false)
     {
         $builder = $this->orderBy('created_at', 'DESC');
+
+        $builder->where('is_archived', $archived ? 1 : 0);
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];

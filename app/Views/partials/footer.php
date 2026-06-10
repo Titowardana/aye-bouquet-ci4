@@ -18,7 +18,7 @@ $emailAddress = trim($contact['email'] ?? '');
 $address = trim($contact['address'] ?? '');
 $mapsUrl = trim($contact['maps_link'] ?? '');
 ?>
-<footer class="w-full border-t border-outline-variant/30 dark:border-white/10 bg-secondary-container dark:bg-[#1b1619] mt-auto" id="kontak">
+<footer class="w-full border-t border-[#E8E3DE]/40 dark:border-white/10 bg-[#E8E3DE] dark:bg-[#1b1619] mt-auto" id="kontak">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
 

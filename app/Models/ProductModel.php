@@ -13,7 +13,7 @@ class ProductModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = [
         'category_id', 'name', 'slug', 'sku', 'description',
-        'price', 'status', 'is_featured', 'is_active', 'sort_order',
+        'price', 'status', 'color', 'is_featured', 'is_active', 'sort_order',
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
@@ -83,10 +83,7 @@ class ProductModel extends Model
         }
 
         if (!empty($filters['warna'])) {
-            $builder->groupStart()
-                    ->like('products.name', $filters['warna'])
-                    ->orLike('products.description', $filters['warna'])
-                    ->groupEnd();
+            $builder->where('products.color', $filters['warna']);
         }
 
         if (!empty($filters['sort'])) {

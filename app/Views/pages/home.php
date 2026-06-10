@@ -2,10 +2,11 @@
 
 <?= $this->section('content') ?>
 <!-- Hero Section -->
-<section class="relative pt-20 pb-32 overflow-hidden bg-primary-fixed/30 dark:bg-[#1a1517]">
+<section class="relative pt-20 pb-32 overflow-hidden bg-warm-blush dark:bg-[#1c191a]">
     <div class="absolute inset-0 z-0">
-        <img alt="Hero background - Aye Bouquet" class="w-full h-full object-cover opacity-20 hero-bg-zoom" src="<?= base_url('assets/images/hero-aye-bouquet.webp') ?>" onerror="this.onerror=null; this.src='<?= base_url('assets/images/no-image.svg') ?>'"/>
+        <img alt="Hero background - Aye Bouquet" class="w-full h-full object-cover opacity-25 hero-bg-zoom mix-blend-multiply dark:mix-blend-normal" src="<?= base_url('assets/images/hero-aye-bouquet.webp') ?>" onerror="this.onerror=null; this.src='<?= base_url('assets/images/no-image.svg') ?>'"/>
     </div>
+    <div class="absolute inset-0 z-[1] hero-warm-overlay pointer-events-none dark:opacity-0"></div>
     <div class="relative z-10 w-full px-6 md:px-12 lg:px-16 mx-auto flex flex-col items-center text-center">
         <span class="inline-block py-1 px-4 rounded-full bg-primary-container dark:bg-primary/30 text-on-primary-container dark:text-white text-xs mb-6 font-semibold shadow-sm tracking-wide animate__animated animate__fadeIn">Momen Spesial, Kado Spesial</span>
         <h1 class="font-display-lg text-4xl md:text-5xl lg:text-6xl text-on-surface dark:text-white/95 mb-6 max-w-5xl text-balance font-extrabold tracking-tight leading-tight animate__animated animate__fadeInUp">
@@ -26,7 +27,7 @@
 </section>
 
 <!-- Categories Section -->
-<section class="py-20 w-full px-6 md:px-12 lg:px-16 mx-auto animate-on-scroll" id="tentang">
+<section class="py-20 w-full px-6 md:px-12 lg:px-16 mx-auto animate-on-scroll bg-warm-cream dark:bg-[#1c191a]" id="tentang">
     <div class="text-center mb-12">
         <h2 class="font-headline-lg text-3xl md:text-4xl text-on-surface dark:text-white/95 mb-4 font-bold tracking-tight">Kategori Pilihan</h2>
         <p class="font-body-md text-sm md:text-base text-on-surface-variant dark:text-white/60 max-w-md mx-auto">Temukan inspirasi kado menarik untuk setiap momen berharga.</p>
@@ -34,7 +35,7 @@
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6" data-stagger>
         <?php $categoryList = $categories ?? []; ?>
         <?php foreach ($categoryList as $category): ?>
-            <a class="group flex flex-col items-center bg-surface-container-lowest dark:bg-[#262024] p-6 rounded-2xl soft-shadow soft-shadow-hover transition-all duration-300 border border-surface-container dark:border-white/10 hover:border-primary/30 animate-on-scroll" href="<?= base_url('/katalog?kategori=' . ($category['slug'] ?? '')) ?>">
+            <a class="group flex flex-col items-center bg-white-warm dark:bg-[#262024] p-6 rounded-2xl soft-shadow soft-shadow-hover transition-all duration-300 border border-soft-beige/30 dark:border-white/10 hover:border-primary/30 animate-on-scroll" href="<?= base_url('/katalog?kategori=' . ($category['slug'] ?? '')) ?>">
                 <div class="w-16 h-16 rounded-full bg-primary-container/40 dark:bg-primary/25 flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim group-hover:scale-110 group-hover:bg-primary-container/70 dark:group-hover:bg-primary/40 transition-all duration-300">
                     <?php
                     $catIcon = $category['icon'] ?? '';
@@ -59,7 +60,7 @@
 </section>
 
 <!-- Popular Products Carousel -->
-<section class="py-20 bg-surface-container-lowest dark:bg-[#1f1b1d] border-t border-surface-container dark:border-white/5 animate-on-scroll" id="catalog">
+<section class="py-20 bg-warm-blush dark:bg-[#1f1b1d] border-t border-soft-beige/20 dark:border-white/5 animate-on-scroll" id="catalog">
     <div class="w-full px-6 md:px-12 lg:px-16 mx-auto">
         <!-- Section Header -->
         <div class="flex justify-between items-end mb-12">
@@ -88,7 +89,7 @@
                     <?php foreach ($featuredProducts as $index => $product): ?>
                     <!-- Carousel Slide Item -->
                     <div class="carousel-slide w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3 animate-on-scroll" data-index="<?= $index ?>">
-                        <div class="bg-surface dark:bg-[#262024] rounded-2xl overflow-hidden soft-shadow flex flex-col h-[420px] group border border-surface-container dark:border-white/10 hover:border-primary/30 transition-all duration-300 card-hover">
+                        <div class="bg-white-warm dark:bg-[#262024] rounded-2xl overflow-hidden soft-shadow flex flex-col h-[420px] group border border-soft-beige/30 dark:border-white/10 hover:border-primary/30 transition-all duration-300 card-hover">
                             <!-- Image -->
                             <a href="<?= base_url('produk/' . esc($product['slug'])) ?>" class="relative h-3/5 overflow-hidden block">
                                 <img
@@ -98,7 +99,7 @@
                                     onerror="this.onerror=null; this.src='<?= base_url('assets/images/no-image.svg') ?>'"
                                 />
                                 <!-- Status Badge -->
-                                <div class="absolute top-3 left-3 bg-surface dark:bg-[#2a2328] text-on-surface dark:text-white/90 px-3 py-1 rounded-full font-label-sm text-xs font-bold shadow-sm flex items-center gap-1.5 border border-surface-container dark:border-white/10">
+                                <div class="absolute top-3 left-3 bg-white-warm/90 dark:bg-[#2a2328] text-on-surface dark:text-white/90 px-3 py-1 rounded-full font-label-sm text-xs font-bold shadow-sm flex items-center gap-1.5 border border-soft-beige/30 dark:border-white/10 backdrop-blur-sm">
                                     <div class="w-2 h-2 rounded-full <?= $product['status'] == 'ready' ? 'bg-green-500' : ($product['status'] == 'pre-order' ? 'bg-amber-500' : 'bg-red-500') ?>"></div>
                                     <?= esc(ucfirst($product['status'])) ?>
                                 </div>
@@ -327,14 +328,14 @@
 
 <!-- Testimonials Section -->
 <?php if (!empty($testimonials)): ?>
-<section class="py-20 w-full px-6 md:px-12 lg:px-16 mx-auto animate-on-scroll" id="testimoni">
+<section class="py-20 w-full px-6 md:px-12 lg:px-16 mx-auto animate-on-scroll bg-warm-cream dark:bg-[#1c191a]" id="testimoni">
     <div class="text-center mb-12">
         <h2 class="font-headline-lg text-3xl md:text-4xl text-on-surface dark:text-white/95 mb-4 font-bold tracking-tight">Testimonial Pelanggan</h2>
         <p class="font-body-md text-sm md:text-base text-on-surface-variant dark:text-white/60 max-w-md mx-auto">Apa kata mereka yang telah mempercayakan kebahagiaannya di Aye Bouquet.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" data-stagger>
         <?php foreach ($testimonials as $testimonial): ?>
-        <div class="bg-surface dark:bg-[#262024] rounded-2xl p-8 soft-shadow border border-surface-container dark:border-white/10 flex flex-col justify-between hover:border-primary/20 transition-all duration-300 group animate-on-scroll">
+        <div class="bg-white-warm dark:bg-[#262024] rounded-2xl p-8 soft-shadow border border-soft-beige/30 dark:border-white/10 flex flex-col justify-between hover:border-primary/20 transition-all duration-300 group animate-on-scroll">
             <div>
                 <div class="flex gap-1 mb-4 text-primary dark:text-primary-fixed-dim">
                     <?php for ($i = 1; $i <= 5; $i++): ?>

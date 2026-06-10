@@ -1,127 +1,83 @@
-# design.md — Revisi Berdasarkan Desain Google Stitch
+# design.md — Panduan Desain Aye Bouquet
 
 ## 1. Status Desain
 
-Dokumen ini adalah revisi `design.md` berdasarkan screenshot UI/UX Google Stitch yang sudah dibuat. Desain ini belum final 100% karena masih perlu divalidasi ke pihak UMKM, tetapi sudah sangat layak dijadikan acuan awal implementasi ke CodeIgniter 4.
+Dokumen ini adalah panduan desain untuk project **Aye Bouquet**, website katalog dan pemesanan produk gift/custom UMKM melalui WhatsApp.
+
+Project sudah berjalan dengan fitur inti:
+- Katalog produk dengan filter (kategori, ukuran, harga, warna, status)
+- Keranjang berbasis session
+- Checkout dengan redirect WhatsApp
+- Custom Order
+- Testimoni dengan approval admin
+- Admin dashboard (produk, kategori, warna, opsi custom, testimoni, galeri, FAQ, kontak, orders)
+- Dark mode (khususnya admin sudah baik)
+- Auth ganda (customer + admin)
+
+**Fokus desain selanjutnya:** memperbaiki frontend light mode yang masih terlalu dominan putih, tanpa mengubah dark mode dan tanpa mengubah logic fitur yang sudah berjalan.
 
 Konsep utama desain:
 
 ```text
-Soft, clean, modern, elegant, feminim, hangat, dan mudah digunakan.
+Soft, clean, modern, elegant, feminin, hangat, dan mudah digunakan.
 ```
-
-Website ini adalah katalog dan pemesanan produk gift/custom melalui WhatsApp, bukan e-commerce penuh.
 
 ---
 
-## 2. Catatan Utama dari Screenshot
+## 2. Aturan Utama Perubahan Desain
 
-Dari desain yang diberikan, terdapat dua halaman utama:
+Setiap perubahan desain WAJIB mematuhi aturan berikut:
 
-1. Homepage / Beranda
-2. Catalog / Katalog Produk
-
-Secara visual desain sudah kuat karena memiliki:
-- Navbar bersih
-- Hero section soft dengan background buket
-- Warna mauve/pink/cream yang konsisten
-- Kategori produk berbentuk card
-- Produk populer
-- Testimonial pelanggan
-- Footer sederhana
-- Katalog dengan sidebar filter
-- Search bar
-- Sort dropdown
-- Card produk
-- Badge status produk
-- Pagination
-
-Desain ini sudah cocok untuk website UMKM gift/custom.
+1. **Jangan mengubah logic** — route, controller, model, migration, database, session, cart, checkout, order, WhatsApp, login, register tetap seperti adanya.
+2. **Jangan menghapus csrf_field()**, action, method, name, id, value, selected, checked, required, enctype, atau atribut penting form.
+3. **Jangan menambah library/CDN baru** — gunakan Tailwind CDN, Material Symbols, SweetAlert2, Animate.css yang sudah ada.
+4. **Dark mode jangan dirombak besar-besaran** — hanya perbaikan visual kecil jika diperlukan.
+5. **Jangan merombak total** — lakukan perubahan bertahap dan terukur.
 
 ---
 
-## 3. Catatan Perbaikan Sebelum Final
+## 3. Brand
 
-Beberapa hal yang perlu diperbaiki sebelum desain dikunci:
-
-### 3.1 Nama Brand Belum Konsisten
-
-Pada homepage tertulis:
-
-```text
-Bespoke Bloom & Gift
-```
-
-Pada katalog tertulis:
-
-```text
-Gift Custom UMKM
-```
-
-Solusi:
-- Gunakan satu nama brand final.
-- Jangan hardcode nama brand di banyak file.
-- Simpan nama brand di layout, file config, atau tabel setting agar mudah diganti.
-
-### 3.2 Bahasa Menu Perlu Konsisten
-
-Menu saat ini menggunakan bahasa Inggris:
-
-```text
-Home, Catalog, Testimonials, About Us, Contact
-```
-
-Jika target pelanggan lokal Indonesia, disarankan menjadi:
-
-```text
-Beranda, Katalog, Testimoni, Tentang Kami, Kontak
-```
-
-Pilih salah satu bahasa dan gunakan konsisten di semua halaman.
-
-### 3.3 Menu Custom Order Belum Terlihat
-
-Karena fitur custom order adalah fitur penting, sebaiknya ditampilkan di navbar atau tombol utama.
-
-Pilihan:
-- Tambahkan menu `Custom Order`
-- Atau jadikan tombol CTA di hero dan katalog
-
-### 3.4 Kategori Single Flower Belum Tampil
-
-Jika Single Flower tetap masuk scope, tambahkan kategori:
-
-```text
-Single Flower
-```
-
-Jika tidak dijual oleh UMKM, boleh dihapus dari rancangan database dan tampilan.
-
-### 3.5 Placeholder Produk di Katalog
-
-Pada katalog, gambar produk masih placeholder. Untuk showcase atau pitching, sebaiknya gunakan:
-- Foto produk asli UMKM
-- Atau placeholder yang sesuai tema buket/gift
-
-Jangan gunakan placeholder default ungu saat presentasi final.
+| Atribut | Nilai |
+|---|---|
+| Nama brand | **Aye Bouquet** |
+| Tidak boleh diganti | Aye Bouquet (hardcode di layout sudah pakai title/view data) |
+| Nama tersimpan di | title/view data, bukan hardcode di setiap file |
 
 ---
 
-## 4. Palet Warna Final dari Desain
+## 4. Bahasa
 
-Gunakan warna berikut sebagai acuan implementasi CSS:
+Seluruh antarmuka frontend menggunakan **Bahasa Indonesia**:
 
 ```text
-Primary Mauve/Burgundy : #7B4B61
-Dark Mauve             : #6A3F53
-Soft Pink              : #F7DCE8
-Light Pink             : #FBEAF1
-Cream Background       : #FAF7F5
-Soft Beige             : #E8E3DE
-White                  : #FFFFFF
-Text Dark              : #1F1F1F
-Text Muted             : #6F6F6F
-Border Soft            : #E6D6DC
+Beranda
+Katalog
+Custom Order
+Testimoni
+Tentang Kami
+Kontak
+```
+
+Menu Custom Order sudah ada di navbar. Jangan menghapus atau mengganti menu ini.
+
+---
+
+## 5. Palet Warna — Light Mode
+
+Light mode saat ini terlalu dominan putih. Perbaiki dengan palet berikut:
+
+```text
+Primary Mauve (brand)   : #795465  — tombol, heading, active menu, pagination
+Dusty Mauve             : #8B5E6E  — variant, hover state
+Warm Blush              : #FBF0ED  — background section alternating
+Soft Pink               : #F8E1DE  — icon background, aksen lembut
+Cream                   : #FAF5F2  — background section utama
+White Warm Card         : #FFFBF9  — background card/container
+Soft Beige              : #E8E3DE  — border halus, footer background
+White                   : #FFFFFF  — hanya untuk area yang memerlukan kontras tinggi
+Text Dark               : #1F1F1F  — body text
+Text Muted              : #6F6F6F  — secondary text
 ```
 
 Warna status produk:
@@ -137,34 +93,42 @@ Habis Background       : #ECE9EF
 Habis Text             : #555555
 ```
 
-Aturan:
-- Background utama gunakan cream atau putih.
-- Warna utama untuk heading, tombol, active menu, dan pagination adalah mauve/burgundy.
-- Pink muda digunakan untuk icon kategori dan aksen lembut.
-- Jangan menambah warna mencolok di luar tema.
+Aturan penggunaan:
+- **Background section**: jangan semua putih polos. Gunakan alternating:
+  - Section 1: Cream (`#FAF5F2`)
+  - Section 2: Warm Blush (`#FBF0ED`)
+  - Section 3: Cream lagi, dan seterusnya
+- **Card produk**: White Warm Card (`#FFFBF9`) dengan border soft dan shadow lembut
+- **Heading & tombol utama**: Primary Mauve
+- **Aksen lembut**: Soft Pink untuk icon, badge, highlight ringan
+- **Border**: gunakan Soft Beige atau `border-outline-variant/20`
 
 ---
 
-## 5. Typography
+## 6. Palet Warna — Dark Mode
 
-Gunakan font utama:
+Dark mode sudah cukup baik dan **jangan dirombak besar-besaran**.
+
+Warna dark mode existing (pertahankan):
 
 ```text
-Poppins
+Background utama       : #1C191A
+Card                   : #2A2028
+Border                 : rgba(255,255,255,0.08)
+Text utama             : #FFFFFF
+Text muted             : rgba(255,255,255,0.6)
 ```
 
-Alternatif:
+Hanya perbaiki bug visual kecil jika ditemukan (teks tidak terbaca, kontras kurang, padding tidak konsisten).
+
+---
+
+## 7. Typography
+
+Font yang digunakan saat ini (pertahankan):
+
 ```text
-Inter
-Nunito Sans
-```
-
-Rekomendasi CSS:
-
-```css
-body {
-  font-family: 'Poppins', sans-serif;
-}
+Plus Jakarta Sans      — font utama (sudah via CDN)
 ```
 
 Ukuran font acuan:
@@ -183,559 +147,313 @@ Button text        : 13px - 15px
 
 ---
 
-## 6. Navbar
+## 8. Section Background — Panduan Alternating
 
-Navbar mengikuti desain Google Stitch.
-
-Isi navbar:
-- Nama brand di kiri
-- Menu di tengah
-- Icon cart dan akun di kanan
-
-Menu yang disarankan:
+Agar light mode tidak monoton putih, gunakan pola background berselang-seling:
 
 ```text
-Beranda
-Katalog
-Custom Order
-Testimoni
-Tentang Kami
-Kontak
+Section Hero          : Warm Blush (#FBF0ED) dengan gradient overlay
+Section Kategori      : Cream (#FAF5F2)
+Section Produk Populer: Warm Blush (#FBF0ED)
+Section Testimoni     : Cream (#FAF5F2)
+Section Footer        : Soft Beige (#E8E3DE) atau Dusty Mauve
 ```
 
-Aturan desain:
-- Background putih.
-- Border bawah halus.
-- Menu aktif diberi underline warna mauve.
-- Icon cart dan user menggunakan warna mauve.
-- Di mobile, navbar berubah menjadi hamburger.
+Untuk halaman internal (Katalog, Custom Order, dll):
+- Background utama: Cream (`#FAF5F2`) atau White Warm Card (`#FFFBF9`)
+- Card/container: White Warm Card dengan soft shadow
+- Jangan gunakan putih murni (`#FFFFFF`) untuk background halaman penuh
 
 ---
 
-## 7. Homepage / Beranda
+## 9. Panduan Halaman Frontend
 
-Struktur homepage dari desain sudah baik.
+### 9.1 Homepage / Beranda
 
 Urutan section:
 1. Navbar
 2. Hero section
 3. Kategori pilihan
-4. Produk terpopuler
-5. Testimonial pelanggan
+4. Produk terpopuler (maksimal 8 produk)
+5. Testimonial pelanggan (3 testimonial)
 6. Footer
 
-Bagian ini dapat langsung dijadikan acuan coding.
+Aturan produk populer:
+- Maksimal **8 produk** ditampilkan
+- Produk dengan status **Habis** tidak ditampilkan sebagai produk populer
+- Gunakan produk dengan status **Unggulan / Featured** jika ada, atau produk aktif dengan status Ready/Pre-order
+- Jika produk unggulan kosong, tampilkan produk aktif terbaru
 
----
-
-## 8. Hero Section
-
-Hero section memiliki background gambar buket dengan overlay soft pink/cream.
-
-Komponen wajib:
-- Badge kecil:
-  ```text
-  Momen Spesial, Kado Spesial
-  ```
-- Judul:
-  ```text
-  Pesan Buket dan Gift Custom Sesuai Keinginanmu
-  ```
-- Deskripsi singkat
-- Tombol utama:
-  ```text
-  Belanja Sekarang
-  ```
-- Tombol kedua:
-  ```text
-  Buat Custom Order
-  ```
-
-Aturan:
-- Teks berada di tengah.
-- Background gambar harus soft agar teks terbaca.
-- Tombol utama menggunakan warna mauve.
-- Tombol kedua outline.
-- Mobile harus tetap rapi dan tidak terlalu tinggi.
-
----
-
-## 9. Kategori Pilihan
-
-Kategori dari desain:
-- Buket Bunga
-- Buket Uang
-- Buket Snack
-- Selempang
-- Bloom Box
-- Custom Gift
-
-Tambahkan jika diperlukan:
-- Single Flower
-
-Aturan:
-- Card kategori background putih.
-- Icon berada dalam lingkaran pink muda.
-- Card memiliki rounded corner dan shadow halus.
-- Kategori harus bisa diklik menuju katalog berdasarkan kategori.
+### 9.2 Katalog
 
 Layout:
 ```text
-Desktop : 6 card per baris jika cukup
-Tablet  : 3 card per baris
-Mobile  : 2 card per baris atau horizontal scroll
+Desktop: Sidebar filter kiri + grid produk kanan
+Mobile : Search + tombol filter di atas, grid produk di bawah (filter jadi offcanvas/modal)
 ```
 
----
-
-## 10. Produk Terpopuler
-
-Desain menampilkan satu produk utama besar dan satu produk kecil.
-
-Untuk implementasi awal, boleh gunakan:
-- 1 produk unggulan besar
-- 2 sampai 4 produk populer kecil
-
-Isi card:
-- Foto produk
-- Kategori
-- Nama produk
-- Ukuran tersedia
-- Harga / mulai dari
-- Status produk
-- Tombol detail atau icon keranjang
-
-Aturan:
-- Produk custom sebaiknya memakai teks `Mulai dari`.
-- Status produk harus konsisten: `Ready`, `Pre-order`, `Habis`.
-- Foto produk harus tajam dan tidak gepeng.
-
----
-
-## 11. Testimonial
-
-Desain testimonial sudah cocok.
-
-Komponen:
-- Rating bintang
-- Isi testimoni
-- Nama pelanggan
-- Label pelanggan
-- Avatar inisial
-
-Aturan:
-- Gunakan 3 testimonial di homepage.
-- Card putih dengan shadow halus.
-- Rating bintang menggunakan warna mauve.
-
----
-
-## 12. Footer
-
-Footer memakai background beige/abu-cream.
-
-Isi footer:
-- Nama brand
-- Deskripsi singkat
-- Icon media sosial
-- Tautan cepat
-- Kontak
-- Alamat
-- Nomor WhatsApp
-- Copyright
-
-Catatan:
-- Footer homepage dan katalog harus konsisten.
-- Gunakan bahasa yang sama di seluruh footer.
-- Jangan membuat footer terlalu tinggi di mobile.
-
----
-
-## 13. Halaman Katalog Produk
-
-Desain katalog sudah sangat baik dan menjadi acuan utama.
-
-Layout desktop:
-```text
-Kiri  : Sidebar filter
-Kanan : Judul katalog, search, sort, grid produk, pagination
-```
-
-Layout mobile:
-```text
-Atas  : Judul katalog
-Atas  : Search
-Atas  : Tombol Filter
-Bawah : Grid produk
-```
-
-Pada mobile, sidebar filter harus menjadi:
-- Collapse
-- Offcanvas
-- Atau modal filter
-
-Jangan tampilkan sidebar tetap di layar kecil.
-
----
-
-## 14. Sidebar Filter
-
-Filter yang wajib ada:
-- Kategori
-- Ukuran
+Sidebar filter sudah berjalan dengan filter:
+- Kategori (dari database)
+- Ukuran (dari database)
 - Rentang harga
-- Warna
-- Status
+- **Warna (dari tabel `product_colors` — hanya warna aktif)**
+- Status produk
 
-Kategori:
-```text
-Semua Produk
-Buket Bunga
-Buket Uang
-Buket Snack
-Selempang
-Bloom Box
-Custom Gift
-Single Flower jika diperlukan
-```
+**Filter warna — aturan baru:**
+- Warna berasal dari tabel `product_colors`
+- Hanya warna dengan `is_active = 1` yang ditampilkan
+- Tampilkan swatch bulat menggunakan `hex_code`
+- **Jangan hardcode daftar warna** di view
+- Jika tidak ada warna aktif, filter warna boleh disembunyikan
 
-Ukuran:
-```text
-S
-M
-L
-XL
-XXL
-Jumbo
-```
+### 9.3 Custom Order
 
-Rentang harga:
-```text
-di bawah Rp50.000
-Rp50.000 - Rp100.000
-Rp100.000 - Rp200.000
-Rp200.000 - Rp500.000
-di atas Rp500.000
-```
+Halaman custom order sudah berjalan. Pertahankan form dan logika yang ada.
 
-Warna:
-- Pink
-- Merah
-- Putih
-- Biru
-- Ungu
+Perbaikan visual yang mungkin:
+- Card form menggunakan White Warm Card
+- Alternating background antar section form jika panjang
 
-Status:
-```text
-Ready
-Pre-order
-Habis
-```
+### 9.4 Testimoni
 
----
-
-## 15. Search dan Sort
-
-Search bar:
-```text
-Cari produk...
-```
+Halaman testimoni publik sudah menampilkan testimonial yang sudah di-approve.
 
 Aturan:
-- Rounded besar.
-- Icon search di kiri.
-- Border soft mauve/pink.
-- Mudah digunakan di mobile.
+- Card testimoni: White Warm Card dengan soft shadow
+- Background section: Cream
+- Foto pelanggan: `w-32 h-32` dengan lightbox global
+- Rating bintang aktif: warna primary mauve, tidak aktif: gray-300
+- Jika belum ada testimoni: tampilkan empty state "Belum ada ulasan"
 
-Sort:
-```text
-Featured
-Terbaru
-Harga Terendah
-Harga Tertinggi
-Nama A-Z
-```
+### 9.5 Tentang Kami
 
-Jika menggunakan bahasa Indonesia:
-```text
-Urutkan
-```
-
----
-
-## 16. Card Produk Katalog
-
-Isi card produk:
-- Foto produk
-- Badge status di pojok kanan atas
-- Kategori
-- Nama produk
-- Ukuran tersedia
-- Harga
-- Tombol `Lihat Detail`
+Halaman profil brand.
 
 Aturan visual:
-- Card putih.
-- Border-radius 16px sampai 20px.
-- Shadow lembut.
-- Foto menggunakan object-fit cover.
-- Badge status berada di atas gambar.
-- Tombol detail berbentuk outline pill.
-- Harga menggunakan warna mauve dan font tebal.
+- Alternating background antar section
+- Foto/visual brand dengan rounded corner
+- Teks mudah dibaca, gunakan text-dark (`#1F1F1F`)
+- Hindari putih polos di background
 
----
+### 9.6 Kontak
 
-## 17. Pagination
-
-Pagination mengikuti desain:
-- Tombol angka rounded.
-- Halaman aktif berwarna mauve.
-- Previous dan next memakai icon panah.
-- Mobile tetap sederhana.
-
----
-
-## 18. Halaman Detail Produk
-
-Walaupun belum ada screenshot, halaman detail harus mengikuti style katalog.
-
-Layout desktop:
-```text
-Kiri  : Foto produk besar
-Kanan : Informasi produk dan pilihan order
-```
-
-Komponen:
-- Foto produk
-- Nama produk
-- Kategori
-- Harga mulai dari
-- Status
-- Deskripsi
-- Pilihan ukuran
-- Tabel harga ukuran
-- Tambahan aksesoris
-- Catatan custom
-- Tombol Tambah ke Keranjang
-- Tombol Konsultasi via WhatsApp
-- Produk serupa
-
----
-
-## 19. Keranjang
-
-Keranjang menggunakan gaya card putih.
-
-Komponen:
-- Foto produk
-- Nama produk
-- Ukuran
-- Jumlah
-- Harga estimasi
-- Tambahan
-- Catatan custom
-- Tombol hapus
-- Total estimasi
-- Tombol lanjut checkout
-
-Tambahkan catatan:
-```text
-Total hanya estimasi. Harga akhir dikonfirmasi melalui WhatsApp.
-```
-
----
-
-## 20. Checkout
-
-Checkout harus mudah diisi di HP.
-
-Komponen:
-- Nama pemesan
-- Nama penerima
-- Nomor HP
-- Tanggal dibutuhkan
-- Jam
-- Metode pengambilan
-- Alamat
-- Warna dominan
-- Tema acara
-- Tambahan aksesoris
-- Isi kartu ucapan
-- Catatan tambahan
-- Ringkasan produk
-- Tombol Checkout via WhatsApp
+Halaman kontak dan lokasi.
 
 Aturan:
-- Form dalam card putih.
-- Input rounded.
-- Tombol utama jelas.
-- Ringkasan pesanan tampil sebelum checkout.
+- Card informasi kontak: White Warm Card
+- Background: Cream
+- Nomor WhatsApp dari database (tabel settings) — jangan hardcode
+- Google Maps jika tersedia
 
 ---
 
-## 21. Custom Order
+## 10. Navbar
 
-Custom order perlu ditonjolkan.
+```text
+Isi navbar:
+[Logo Aye Bouquet] [Beranda] [Katalog] [Custom Order] [Kontak] [Cart Icon] [User Icon]
+```
+
+Aturan desain:
+- Background putih dengan border bawah halus.
+- Menu aktif: underline warna mauve.
+- Cart icon dan user icon: warna mauve.
+- Mobile: hamburger menu.
+- Jangan tambah menu baru tanpa diskusi.
+
+---
+
+## 11. Hero Section
+
+Hero section dengan background gambar buket + overlay.
 
 Komponen:
-- Jenis produk
-- Ukuran
-- Budget
-- Warna dominan
-- Tema acara
-- Jenis bunga/bahan
-- Tambahan lampu
-- Kartu ucapan
-- Isi kartu ucapan
-- Tanggal dibutuhkan
-- Nama pemesan
-- Nomor HP
-- Catatan khusus
-- Tombol Kirim ke WhatsApp
+- Badge kecil: "Momen Spesial, Kado Spesial"
+- Judul: "Pesan Buket dan Gift Custom Sesuai Keinginanmu"
+- Deskripsi singkat
+- Tombol "Belanja Sekarang" (mauve solid)
+- Tombol "Buat Custom Order" (outline)
 
-Tambahkan info:
-```text
-Jika memiliki referensi gambar, pelanggan dapat mengirimkannya melalui WhatsApp setelah form dikirim.
-```
+Aturan:
+- Background: Warm Blush dengan overlay soft.
+- Mobile tetap rapi, tidak terlalu tinggi.
+- Tombol mudah di-tap di mobile.
 
 ---
 
-## 22. Admin
+## 12. Produk Terpopuler
 
-Admin tidak harus terlalu mewah, tetapi harus rapi.
+- Maksimal 8 produk.
+- Produk Habis tidak ditampilkan.
+- Gunakan produk featured/unggulan jika ada.
+- Jika tidak ada produk unggulan, gunakan produk aktif terbaru.
 
-Layout desktop:
+Card produk:
 ```text
-Sidebar kiri
-Konten kanan
-```
-
-Isi dashboard:
-- Jumlah produk
-- Jumlah kategori
-- Jumlah galeri
-- Jumlah testimoni
-- Shortcut tambah produk
-- Shortcut kelola kategori
-
-Admin produk:
-- Tabel produk
-- Search
-- Filter kategori/status
-- Tombol tambah produk
-- Tombol edit
-- Tombol hapus
-- Preview foto
-
-Kolom tabel:
-```text
-Foto
-Nama Produk
+Foto produk
+Badge status (kanan atas)
+Nama produk
 Kategori
-Harga Mulai
-Status
-Aksi
+Mulai dari Rp...
 ```
+
+Aturan:
+- Card: White Warm Card, rounded-2xl, shadow lembut.
+- Harga: bold, warna mauve.
+- Foto: object-fit cover, aspect ratio konsisten.
 
 ---
 
-## 23. Responsive Design
+## 13. Sidebar Filter — Warna
+
+**PENTING — Filter warna sudah dinamis:**
+
+```php
+// Contoh logika (jangan diubah):
+$colorModel = new \App\Models\ProductColorModel();
+$colors = $colorModel->getActiveColors(); // hanya is_active = 1
+```
+
+Di view:
+```text
+@foreach ($colors as $color)
+  <label>
+    <input type="checkbox" name="warna[]" value="{{ $color['name'] }}">
+    <span class="w-4 h-4 rounded-full" style="background-color: {{ $color['hex_code'] }}"></span>
+    {{ $color['name'] }}
+  </label>
+@endforeach
+```
+
+Aturan:
+- **Jangan hardcode** daftar warna.
+- Gunakan `hex_code` untuk swatch.
+- Hanya warna aktif (`is_active = 1`) yang tampil.
+- Urut berdasarkan `sort_order` ASC, lalu `name` ASC.
+
+---
+
+## 14. Admin
+
+Admin sudah cukup baik. Catatan:
+
+1. **Dark mode admin jangan dirombak** — sudah menggunakan palet ungu gelap yang konsisten.
+2. **Light mode admin** boleh diperbaiki jika ada bug visual (teks tidak terbaca, padding tidak rapi, tombol tidak jelas).
+3. **Perubahan admin hanya untuk bug visual kecil** — jangan mengubah layout, sidebar, tabel, atau form yang sudah berjalan.
+4. Jangan mengubah logic CRUD, filter, search, toggle status, upload, atau export.
+
+---
+
+## 15. Card Produk (Katalog)
+
+Aturan visual:
+- Background: White Warm Card (`#FFFBF9`)
+- Border-radius: 16px — 20px
+- Shadow: lembut (`shadow-sm`)
+- Foto: object-fit cover, aspect ratio 1:1 atau 4:3 konsisten
+- Badge status: pojok kanan atas foto
+- Harga: bold, warna mauve
+- Tombol "Lihat Detail": outline pill
+
+---
+
+## 16. Responsive Design
 
 Breakpoint:
 ```text
-Mobile  : < 576px
-Tablet  : 576px - 991px
-Desktop : >= 992px
+Mobile  : < 640px
+Tablet  : 640px - 1023px
+Desktop : >= 1024px
 ```
 
 Aturan mobile:
-- Navbar hamburger.
-- Hero satu kolom.
-- Kategori 2 kolom atau horizontal scroll.
-- Produk 1 kolom.
-- Filter katalog menjadi offcanvas/collapse.
-- Form full width.
-- Footer satu kolom.
-- Tabel admin scroll horizontal.
+- Navbar hamburger
+- Hero satu kolom
+- Kategori: horizontal scroll atau 2 kolom
+- Produk: 1-2 kolom
+- Filter katalog: offcanvas/modal (bukan sidebar tetap)
+- Form: full width
+- Footer: satu kolom
 
 ---
 
-## 24. Class CSS yang Disarankan
-
-Gunakan class reusable:
-
-```text
-.btn-primary-custom
-.btn-outline-custom
-.badge-ready
-.badge-preorder
-.badge-habis
-.product-card
-.category-card
-.section-title
-.soft-card
-.filter-sidebar
-.form-control-custom
-```
-
-Hindari terlalu banyak inline style.
-
----
-
-## 25. Struktur Asset
-
-Gunakan struktur:
-
-```text
-public/
-├── assets/
-│   ├── css/
-│   │   ├── style.css
-│   │   └── admin.css
-│   ├── js/
-│   │   └── main.js
-│   └── images/
-│       ├── logo.png
-│       ├── hero-bouquet.jpg
-│       └── placeholder-product.png
-└── uploads/
-    ├── products/
-    └── gallery/
-```
-
----
-
-## 26. Validasi ke Pihak UMKM
-
-Sebelum desain final, tanyakan:
-1. Nama brand final
-2. Warna utama yang disukai
-3. Produk utama yang ingin ditonjolkan
-4. Kategori produk yang benar-benar dijual
-5. Nomor WhatsApp
-6. Alamat dan Google Maps
-7. Jam operasional
-8. Bahasa website: Indonesia atau English
-9. Harga pasti atau harga mulai dari
-10. Ketersediaan foto produk asli
-
----
-
-## 27. Larangan Desain
+## 17. Larangan Desain
 
 Jangan:
-- Mengubah desain menjadi gelap
-- Menggunakan warna neon
+- Mengubah warna brand (mauve #795465)
+- Menggunakan warna neon atau mencolok di luar tema
 - Menghilangkan filter katalog
 - Menghilangkan tombol WhatsApp
-- Mencampur nama brand
 - Mencampur bahasa tanpa alasan
-- Menggunakan foto gepeng
-- Membiarkan placeholder default saat showcase
+- Membiarkan foto produk gepeng
 - Membuat mobile view berantakan
+- Menambahkan rating/review palsu atau dummy
+- Menampilkan produk Habis sebagai produk populer
+- Menghardcode warna filter di view
 
 ---
 
-## 28. Ringkasan
+## 18. Checklist Testing Visual — Light Mode
 
-Desain Google Stitch yang diberikan sudah bagus dan cocok untuk website UMKM gift/custom. Desain ini perlu dijadikan acuan utama implementasi CI4, dengan beberapa revisi kecil: konsistensi nama brand, konsistensi bahasa, penambahan custom order di navbar, penggunaan foto produk asli, dan perencanaan filter katalog untuk mobile.
+Setelah perubahan desain light mode, WAJIB test:
+
+### 18.1 Homepage
+- [ ] Hero section: background Warm Blush, teks terbaca, tombol jelas
+- [ ] Kategori: card rapi, icon pink, responsive
+- [ ] Produk populer: maks 8, tidak ada produk Habis, card putih hangat
+- [ ] Testimoni: card cream/putih hangat, rating bintang mauve
+- [ ] Footer: background soft beige/konsisten
+
+### 18.2 Katalog
+- [ ] Background halaman: Cream/White Warm, bukan putih polos
+- [ ] Sidebar filter: card putih hangat, filter warna dari database
+- [ ] Swatch warna: bulat, pakai hex_code, hanya warna aktif
+- [ ] Grid produk: card putih hangat, shadow lembut
+- [ ] Pagination: mauve untuk active
+
+### 18.3 Custom Order
+- [ ] Background: alternating cream/blush
+- [ ] Card form: putih hangat, rounded
+- [ ] Tombol WhatsApp: jelas
+
+### 18.4 Testimoni
+- [ ] Background: cream
+- [ ] Card testimoni: putih hangat
+- [ ] Foto: ukuran konsisten, lightbox berfungsi
+- [ ] Empty state jika tidak ada testimoni
+
+### 18.5 Tentang Kami
+- [ ] Background: alternating
+- [ ] Teks mudah dibaca
+
+### 18.6 Kontak
+- [ ] Background: cream
+- [ ] Info kontak: card putih hangat
+- [ ] Nomor WhatsApp dari database
+
+### 18.7 Mobile Responsive
+- [ ] Navbar hamburger berfungsi
+- [ ] Hero tidak terlalu tinggi
+- [ ] Kategori horizontal scroll
+- [ ] Produk 1-2 kolom rapi
+- [ ] Filter katalog offcanvas/modal
+- [ ] Form full width
+- [ ] Footer satu kolom
+
+### 18.8 Dark Mode Tidak Rusak
+- [ ] Homepage dark mode masih terbaca
+- [ ] Katalog dark mode masih konsisten
+- [ ] Semua halaman dark mode tidak ada perubahan tidak sengaja
+
+---
+
+## 19. Ringkasan
+
+Project Aye Bouquet sudah memiliki fitur lengkap. Fokus desain saat ini adalah **memperhalus light mode frontend** agar tidak terlalu putih, dengan:
+- Alternating background (Warm Blush, Cream)
+- White Warm Card untuk card/container
+- Warna brand mauve konsisten
+- Filter warna dinamis dari database
+- Produk populer maksimal 8, tanpa produk Habis
+- Dark mode tetap seperti adanya
+- Semua perubahan tanpa mengubah logic, route, controller, model, database, atau fitur yang sudah berjalan

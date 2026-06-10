@@ -4,7 +4,7 @@
 <!-- Bento Grid Statistics -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <!-- Stat Card 1: Total Produk -->
-    <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-1">
+    <div class="bg-surface-container-lowest rounded-2xl p-6 soft-shadow border border-outline-variant/20 dark:border-white/10 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-1">
         <div>
             <span class="text-xs font-bold text-on-surface-variant block uppercase tracking-wider mb-1">Total Produk</span>
             <span class="text-3xl font-extrabold text-on-surface block"><?= esc($totalProducts) ?></span>
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Stat Card 2: Total Kategori -->
-    <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-2">
+    <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-2">
         <div>
             <span class="text-xs font-bold text-on-surface-variant block uppercase tracking-wider mb-1">Total Kategori</span>
             <span class="text-3xl font-extrabold text-on-surface block"><?= esc($totalCategories) ?></span>
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Stat Card 3: Total Produk Aktif -->
-    <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-3">
+    <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-3">
         <div>
             <span class="text-xs font-bold text-on-surface-variant block uppercase tracking-wider mb-1">Produk Ready</span>
             <span class="text-3xl font-extrabold text-on-surface block"><?= esc($readyCount) ?></span>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Stat Card 4: Total Ulasan -->
-    <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-4">
+    <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-4">
         <div>
             <span class="text-xs font-bold text-on-surface-variant block uppercase tracking-wider mb-1">Total Ulasan</span>
             <span class="text-3xl font-extrabold text-on-surface block"><?= esc($totalTestimonials) ?></span>
@@ -59,7 +59,7 @@
 </div>
 
 <!-- Stat Card 5: Total Pesanan -->
-<div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-5 mb-8">
+<div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 flex items-center justify-between group hover:border-primary/20 transition-all duration-300 aye-bento-glow aye-hover-lift admin-enter admin-enter-delay-5 mb-8">
     <div>
             <span class="text-xs font-bold text-on-surface-variant block uppercase tracking-wider mb-1">Total Pesanan</span>
             <span class="text-3xl font-extrabold text-on-surface block"><?= esc($totalOrders ?? 0) ?></span>
@@ -76,7 +76,7 @@
 <!-- Bento Grid: Main Content & Recent Orders -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <!-- Recent Products Table (2 Columns Span) -->
-    <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 lg:col-span-2 flex flex-col justify-between card-hover-admin admin-enter admin-enter-delay-2">
+    <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 lg:col-span-2 flex flex-col justify-between card-hover-admin admin-enter admin-enter-delay-2">
         <div>
             <div class="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-4">
                 <h3 class="font-headline-md text-lg font-bold text-on-surface">Produk Terbaru</h3>
@@ -135,7 +135,7 @@
     <!-- Right Side: Quick Action & Testimonial Carousel -->
     <div class="space-y-6">
         <!-- Quick Actions Panel -->
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-3">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-3">
             <h3 class="font-headline-md text-lg font-bold text-on-surface border-b border-outline-variant/20 pb-4 mb-4">Aksi Cepat</h3>
             <div class="grid grid-cols-2 gap-4">
                 <a href="<?= base_url('admin/produk') ?>" class="p-4 bg-primary-container/30 dark:bg-primary/10 border border-primary/10 rounded-xl hover:bg-primary-container/50 transition-colors text-center flex flex-col items-center gap-2 group">
@@ -150,7 +150,7 @@
         </div>
 
         <!-- Latest Testimonials Widget -->
-        <div class="bg-surface-container-lowest dark:bg-on-background rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-4">
+        <div class="bg-surface-container-lowest admin-dark-card rounded-2xl p-6 soft-shadow border border-outline-variant/20 card-hover-admin admin-enter admin-enter-delay-4">
             <div class="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-4">
                 <h3 class="font-headline-md text-lg font-bold text-on-surface">Ulasan Terbaru</h3>
                 <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">rate_review</span>
